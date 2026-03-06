@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoteAvesTest {
 	@Test
 	void LoteAves() {
-		LoteAves lote = new LoteAves("Pintinho", 100, LocalDate.now(), 0.5, AveStatus.INICIAL);
+		LoteAves lote = new LoteAves("Pintinho",  100, 1000, LocalDate.of(2026, 3, 5), LocalDate.now(), 0.5, AveStatus.INICIAL);
 	
 		assertEquals("Pintinho", lote.getRaca());
 		assertEquals(100, lote.getQuantidade());
@@ -19,7 +19,7 @@ class LoteAvesTest {
 
 	@Test
 	void LoteAvesId() {
-		LoteAves lote = new LoteAves("Pintinho", 100, LocalDate.now(), 0.5, AveStatus.INICIAL);
+		LoteAves lote = new LoteAves("Pintinho", 100, 1000, LocalDate.of(2026, 3, 5), LocalDate.now(), 0.5, AveStatus.INICIAL);
 		
 		Long id = lote.getId();
 		assertNull(id);

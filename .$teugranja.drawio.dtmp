@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
   <diagram name="Página-1" id="RC8trFcN1TTDa3QJzTVY">
-    <mxGraphModel dx="762" dy="396" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1324" dy="574" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -83,7 +83,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="gHZ5GT335_Mz20aLzHat-22" value="LoteAves" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="300" y="510" width="230" height="210" as="geometry" />
+          <mxGeometry x="320" y="495" width="230" height="210" as="geometry" />
         </mxCell>
         <mxCell id="gHZ5GT335_Mz20aLzHat-23" value="- raça: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="gHZ5GT335_Mz20aLzHat-22" vertex="1">
           <mxGeometry y="30" width="230" height="30" as="geometry" />
@@ -125,7 +125,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="gHZ5GT335_Mz20aLzHat-34" value="Insumo" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="630" y="555" width="300" height="140" as="geometry" />
+          <mxGeometry x="660" y="555" width="300" height="140" as="geometry" />
         </mxCell>
         <mxCell id="gHZ5GT335_Mz20aLzHat-35" value="- lote: LoteAves" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="gHZ5GT335_Mz20aLzHat-34" vertex="1">
           <mxGeometry y="30" width="300" height="30" as="geometry" />
@@ -143,7 +143,7 @@
           <mxGeometry x="320" y="250" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="gHZ5GT335_Mz20aLzHat-42" value="dashboardLote" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="344" y="740" width="140" height="180" as="geometry" />
+          <mxGeometry x="340" y="790" width="140" height="180" as="geometry" />
         </mxCell>
         <mxCell id="gHZ5GT335_Mz20aLzHat-43" value="- lote : LoteAves" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="gHZ5GT335_Mz20aLzHat-42" vertex="1">
           <mxGeometry y="30" width="140" height="30" as="geometry" />
@@ -159,6 +159,12 @@
         </mxCell>
         <mxCell id="gHZ5GT335_Mz20aLzHat-50" value="- lucroTotal: double" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="gHZ5GT335_Mz20aLzHat-42" vertex="1">
           <mxGeometry y="150" width="140" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8AI1hdEVvA7KvjBpNDPY-2" value="n" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="620" y="570" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="8AI1hdEVvA7KvjBpNDPY-3" value="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="530" y="570" width="60" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
