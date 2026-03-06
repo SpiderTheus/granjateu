@@ -1,6 +1,6 @@
 package com.spider.granjateu.entities;
 
-import com.spider.granjateu.enums.AveStatus;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,32 +12,32 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
-@Table(name = "insumo")
+@Table(name = "postura_registro")
 @Getter
 @Setter
-public class Insumo implements java.io.Serializable {
+public class RegistroPostura implements java.io.Serializable { 
   private static final long serialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  
   @ManyToOne
   @JoinColumn(name = "lote_aves_id")
   private LoteAves loteAves;
 
-  private AveStatus tipo;
-  private Double quantidade;
-  private Double valor;
+  private int ovosProduzidos;
+  private LocalDate data;
 
-  public Insumo() {
-  } 
-
-  public Insumo(LoteAves loteAves, AveStatus tipo, Double quantidade, Double valor) {
-    this.loteAves = loteAves;
-    this.tipo = tipo;
-    this.quantidade = quantidade;
-    this.valor = valor;
+  public RegistroPostura() {
   }
+
+  public RegistroPostura(LoteAves loteAves, int ovosProduzidos) {
+    this.loteAves = loteAves;
+    this.ovosProduzidos = ovosProduzidos;
+    this.data = LocalDate.now();
+  }
+  
 }
