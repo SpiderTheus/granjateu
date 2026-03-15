@@ -29,7 +29,6 @@ public class LoteAves implements java.io.Serializable {
   private int quantidade;
   private double valor;
   private LocalDate dataDeNascimento;
-  private LocalDate dataDeChegada;
   private double pesoMedio;
   private AveStatus status;
 
@@ -45,12 +44,12 @@ public class LoteAves implements java.io.Serializable {
   public LoteAves() {
   }
 
-  public LoteAves(String raca, int quantidade, double valor, LocalDate dataDeNascimento, LocalDate dataDeChegada, double pesoMedio, AveStatus status) {
+  public LoteAves(String raca, int quantidade, double valor, LocalDate dataDeNascimento, double pesoMedio, AveStatus status) {
     this.raca = raca;
     this.quantidade = quantidade;
     this.valor = valor;
     this.dataDeNascimento = dataDeNascimento;
-    this.dataDeChegada = dataDeChegada;
+  
     this.pesoMedio = pesoMedio;
     this.status = status;
   }
