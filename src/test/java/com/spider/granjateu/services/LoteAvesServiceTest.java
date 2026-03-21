@@ -3,6 +3,8 @@ package com.spider.granjateu.services;
 import com.spider.granjateu.entities.LoteAves;
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.LoteAvesRepository;
+import com.spider.granjateu.services.exceptions.NotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.*;
@@ -48,9 +50,9 @@ class LoteAvesServiceTest {
 	void findByStatusInvalid() {
 
 		String status = "Invalido";
-		
+
 		List<LoteAves> result = loteAvesService.findByStatus(status);
-		
+
 		assertNotNull(result);
 		assertTrue(result.isEmpty());
 		Mockito.verify(loteAvesRepository, Mockito.never()).findByStatus(Mockito.any());
@@ -63,9 +65,9 @@ class LoteAvesServiceTest {
 		String status = "postura";
 
 		Mockito.when(loteAvesRepository.findByStatus(AveStatus.POSTURA)).thenReturn(List.of());
-		
+
 		List<LoteAves> result = loteAvesService.findByStatus(status);
-		
+
 		assertNotNull(result);
 		assertTrue(result.isEmpty());
 		Mockito.verify(loteAvesRepository).findByStatus(AveStatus.POSTURA);
@@ -81,7 +83,20 @@ class LoteAvesServiceTest {
 		AveStatus actual = loteAvesService.parseStatus(status);
 
 		assertEquals(expected, actual);
-		
+
+	}
+
+	@Test
+	@DisplayName("Deve retornar uma lista vazia quando a raça não for encontrada")
+	void findByRacaExecption() {
+		String raca = "abc";
+
+		List<LoteAves> actual = loteAvesService.findByRaca(raca);
+
+		assertNotNull(actual);
+		assertTrue(actual.isEmpty());
+		assertThrows(NotFoundException.class, () -> loteAvesService.buscarPorRaca(raca));
+	
 	}
 
 

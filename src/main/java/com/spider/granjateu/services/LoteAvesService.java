@@ -31,7 +31,7 @@ public class LoteAvesService {
 
     public List<LoteAves> findByStatus(String status) {
         try {  
-             AveStatus parsedStatus = parseStatus(status);
+            AveStatus parsedStatus = parseStatus(status);
             List<LoteAves> lotes = loteAvesRepository.findByStatus(parsedStatus);
             
             return verificarLista(lotes); 
@@ -59,6 +59,19 @@ public class LoteAvesService {
     }
 
     public List<LoteAves> findByRaca(String raca) {
-        return loteAvesRepository.findByRaca(raca);
+        try {
+            return buscarPorRaca(raca);
+        } catch (NotFoundException e) {
+            return List.of();
+        }
+    }
+
+    public List<LoteAves> buscarPorRaca(String raca) {
+        List<LoteAves> lotes = loteAvesRepository.findByRaca(raca);
+        
+        if (lotes.isEmpty()) {
+            throw new NotFoundException("Nenhum lote de aves encontrado com a raça especificada");
+        }
+        return lotes;
     }
 }
