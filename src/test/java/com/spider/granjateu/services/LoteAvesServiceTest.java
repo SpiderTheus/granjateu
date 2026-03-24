@@ -160,5 +160,35 @@ class LoteAvesServiceTest {
 
 	}
 
+	@Test
+	@DisplayName("Deve atualizar o status do lote de aves")
+	void updateStatus() {
+		Long id = 1L;
+		String status = "Postura";
+
+		LoteAves loteAves = new LoteAves();
+		loteAves.setId(id);
+		loteAves.setRaca("Raca1");
+		loteAves.setQuantidade(100);
+		loteAves.setDataDeNascimento(LocalDate.now());
+		loteAves.setStatus(AveStatus.INICIAL);
+
+		Mockito.when(loteAvesRepository.findById(id)).thenReturn(java.util.Optional.of(loteAves));
+		Mockito.when(loteAvesRepository.save(Mockito.any(LoteAves.class))).thenReturn(loteAves);
+
+		LoteAves result = loteAvesService.updateStatus(id, status);
+
+		assertNotNull(result);
+		assertEquals(id, result.getId());
+		assertEquals("Raca1", result.getRaca());
+		assertEquals(100, result.getQuantidade());
+		assertEquals(AveStatus.POSTURA, result.getStatus());
+
+		Mockito.verify(loteAvesRepository).findById(id);
+		Mockito.verify(loteAvesRepository).save(Mockito.any(LoteAves.class));
+	}
+
+
+	
 
 }

@@ -99,4 +99,25 @@ public class LoteAvesService {
     public LoteAves save(LoteAves loteAves) {
         return loteAvesRepository.save(loteAves);
     }
+
+    public void delete(Long id) {
+        LoteAves existingLote = findById(id);
+        loteAvesRepository.delete(existingLote);
+    }
+
+    public LoteAves updateStatus(Long id, String status) {
+        LoteAves existingLote = findById(id);
+        AveStatus parsedStatus = parseStatus(status);
+        existingLote.setStatus(parsedStatus);
+        return loteAvesRepository.save(existingLote);
+    }
+
+    public LoteAves updateQuantidadeAvesMortas(Long id, int baixas) {
+        LoteAves existingLote = findById(id);
+        var novaQuantidade = existingLote.getQuantidade() - baixas;
+        existingLote.setQuantidade(novaQuantidade);
+        
+        return loteAvesRepository.save(existingLote);
+    }
+
 }

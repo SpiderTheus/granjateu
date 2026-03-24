@@ -29,7 +29,7 @@ public class LoteAves implements java.io.Serializable {
   private int quantidade;
   private double valor;
   private LocalDate dataDeNascimento;
-  private double pesoMedio;
+  
   private AveStatus status;
 
   @OneToMany(mappedBy = "loteAves")
@@ -44,14 +44,24 @@ public class LoteAves implements java.io.Serializable {
   public LoteAves() {
   }
 
-  public LoteAves(String raca, int quantidade, double valor, LocalDate dataDeNascimento, double pesoMedio, AveStatus status) {
+  public LoteAves(String raca, int quantidade, double valor, LocalDate dataDeNascimento, AveStatus status) {
     this.raca = raca;
     this.quantidade = quantidade;
     this.valor = valor;
-    this.dataDeNascimento = dataDeNascimento;
-  
-    this.pesoMedio = pesoMedio;
+    this.dataDeNascimento = dataDeNascimento;  
     this.status = status;
+  }
+
+  public void subtrairQuantidadeBaixas(int baixas) {
+    if (baixas < 0) {
+        this.quantidade = 0;
+    }
+
+    if (baixas > this.quantidade) {
+        throw new IllegalArgumentException("A quantidade de baixas não pode exceder a quantidade atual de aves.");
+    }
+    
+    this.quantidade -= baixas;
   }
 
 }
