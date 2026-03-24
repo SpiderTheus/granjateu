@@ -74,4 +74,29 @@ public class LoteAvesService {
         }
         return lotes;
     }
+
+    public LoteAves update(Long id, LoteAves loteAves) {
+        LoteAves existingLote = findById(id);
+
+        existingLote = manterAtributo(existingLote, loteAves);
+        
+        return loteAvesRepository.save(existingLote);
+    }
+
+    public LoteAves manterAtributo(LoteAves existingLote, LoteAves loteAves) {
+        if (loteAves.getRaca() != null) {
+            existingLote.setRaca(loteAves.getRaca());
+        }
+        if (loteAves.getQuantidade() != 0) {
+            existingLote.setQuantidade(loteAves.getQuantidade());
+        }
+        if (loteAves.getStatus() != null) {
+            existingLote.setStatus(loteAves.getStatus());
+        }
+        return existingLote;
+    }
+
+    public LoteAves save(LoteAves loteAves) {
+        return loteAvesRepository.save(loteAves);
+    }
 }

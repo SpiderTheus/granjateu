@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDate;
 
 @ExtendWith(MockitoExtension.class)
 class LoteAvesServiceTest {
@@ -96,7 +97,67 @@ class LoteAvesServiceTest {
 		assertNotNull(actual);
 		assertTrue(actual.isEmpty());
 		assertThrows(NotFoundException.class, () -> loteAvesService.buscarPorRaca(raca));
-	
+
+	}
+
+	@Test
+	void update() {
+		Long id = 1L;
+		LoteAves loteAves = new LoteAves();
+		loteAves.setId(id);
+		loteAves.setRaca("Raca1");
+		loteAves.setQuantidade(100);
+		loteAves.setDataDeNascimento(LocalDate.now());
+		loteAves.setStatus(AveStatus.INICIAL);
+
+		Mockito.when(loteAvesRepository.findById(id)).thenReturn(java.util.Optional.of(loteAves));
+		Mockito.when(loteAvesRepository.save(Mockito.any(LoteAves.class))).thenReturn(loteAves);
+
+		LoteAves result = loteAvesService.update(id, loteAves);
+
+		assertNotNull(result);
+		assertEquals(id, result.getId());
+		assertEquals("Raca1", result.getRaca());
+		assertEquals(100, result.getQuantidade());
+		assertEquals(AveStatus.INICIAL, result.getStatus());
+
+		Mockito.verify(loteAvesRepository).findById(id);
+		Mockito.verify(loteAvesRepository).save(Mockito.any(LoteAves.class));
+
+	}
+
+	@Test
+	@DisplayName("Deve manter os atributos do lote de aves que não foram atualizados e estejam null ou zero")
+	void updateManterAtributo() {
+		Long id = 1L;
+		LoteAves loteAves = new LoteAves();
+		loteAves.setId(id);
+		loteAves.setRaca("Raca1");
+		loteAves.setQuantidade(100);
+		loteAves.setDataDeNascimento(LocalDate.now());
+		loteAves.setStatus(AveStatus.INICIAL);
+
+		LoteAves loteAvesAtualizado = new LoteAves();
+		loteAvesAtualizado.setId(id);
+		loteAvesAtualizado.setRaca(null);
+		loteAvesAtualizado.setQuantidade(0);
+		loteAvesAtualizado.setDataDeNascimento(LocalDate.now());
+		loteAvesAtualizado.setStatus(null);
+
+		Mockito.when(loteAvesRepository.findById(id)).thenReturn(java.util.Optional.of(loteAves));
+		Mockito.when(loteAvesRepository.save(Mockito.any(LoteAves.class))).thenReturn(loteAves);
+
+		LoteAves result = loteAvesService.update(id, loteAves);
+
+		assertNotNull(result);
+		assertEquals(id, result.getId());
+		assertEquals("Raca1", result.getRaca());
+		assertEquals(100, result.getQuantidade());
+		assertEquals(AveStatus.INICIAL, result.getStatus());
+
+		Mockito.verify(loteAvesRepository).findById(id);
+		Mockito.verify(loteAvesRepository).save(Mockito.any(LoteAves.class));
+
 	}
 
 
