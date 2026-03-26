@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spider.granjateu.dtos.LoteAvesDto;
 import com.spider.granjateu.entities.LoteAves;
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.LoteAvesRepository;
@@ -21,34 +22,20 @@ public class LoteAvesService {
         this.loteAvesRepository = loteAvesRepository;
     }
 
-    public List<LoteAves> findAll() {
-        return loteAvesRepository.findAll();
-    }
 
-    public LoteAves findById(Long id) {
-        return loteAvesRepository.findById(id).orElseThrow(() -> new NotFoundException("Lote de Aves com ID " + id));
-    }
-
-    public List<LoteAves> findByStatus(String status) {
+    public List<LoteAvesDto> findByStatus(String status) {
         try {  
             AveStatus parsedStatus = parseStatus(status);
-            List<LoteAves> lotes = loteAvesRepository.findByStatus(parsedStatus);
-            
-            return verificarLista(lotes); 
+            List<LoteAves> lotes = verificarLista(loteAvesRepository.findByStatus(parsedStatus));
+         
+            return findAllDtos(lotes); 
 
         } catch (StatusInvalidExecption | NotFoundException e) {
             return List.of();
         } 
 
     }
-
-    public List<LoteAves> verificarLista(List<LoteAves> lotes) {
-        if (lotes.isEmpty()) {
-            throw new NotFoundException("Nenhum lote de aves encontrado com o status especificado");
-        }
-        return lotes;
-    }
-
+    
     public AveStatus parseStatus(String status) {
         try {
             return AveStatus.valueOf(status.toUpperCase());
@@ -58,9 +45,16 @@ public class LoteAvesService {
         }
     }
 
-    public List<LoteAves> findByRaca(String raca) {
+    public List<LoteAves> verificarLista(List<LoteAves> lotes) {
+    if (lotes.isEmpty()) {
+        throw new NotFoundException("Nenhum lote de aves encontrado com o status especificado");
+       }
+       return lotes;
+    }
+
+        public List<LoteAvesDto> findByRaca(String raca) {
         try {
-            return buscarPorRaca(raca);
+            return findAllDtos(buscarPorRaca(raca));
         } catch (NotFoundException e) {
             return List.of();
         }
@@ -73,6 +67,23 @@ public class LoteAvesService {
             throw new NotFoundException("Nenhum lote de aves encontrado com a raça especificada");
         }
         return lotes;
+    }
+
+    public List<LoteAvesDto> findAllDtos(List<LoteAves> lotes) {
+        return lotes.stream().map(LoteAvesDto::new).toList();
+    }
+        
+    public List<LoteAvesDto> findAll() {
+        return findAllDtos(loteAvesRepository.findAll());
+    }
+
+    public LoteAvesDto findByIdDto(Long id) {
+        LoteAves loteAves = findById(id);
+        return new LoteAvesDto(loteAves);
+    }
+
+    public LoteAves findById(Long id) {
+        return loteAvesRepository.findById(id).orElseThrow(() -> new NotFoundException("Lote de Aves com ID " + id));
     }
 
     public LoteAves update(Long id, LoteAves loteAves) {

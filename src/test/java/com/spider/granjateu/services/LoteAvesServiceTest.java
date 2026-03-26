@@ -1,5 +1,6 @@
 package com.spider.granjateu.services;
 
+import com.spider.granjateu.dtos.LoteAvesDto;
 import com.spider.granjateu.entities.LoteAves;
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.LoteAvesRepository;
@@ -37,12 +38,12 @@ class LoteAvesServiceTest {
 		lotes.add(lote);
 
 		Mockito.when(loteAvesRepository.findByStatus(AveStatus.INICIAL)).thenReturn(lotes);
+		
 
-		List<LoteAves> result = loteAvesService.findByStatus(status);
+		List<LoteAvesDto> result = loteAvesService.findByStatus(status);
 
 		assertNotNull(result);
 		assertEquals(1, result.size());
-		assertEquals(AveStatus.INICIAL, result.get(0).getStatus());
 		Mockito.verify(loteAvesRepository).findByStatus(AveStatus.INICIAL);
 	}
 
@@ -52,7 +53,7 @@ class LoteAvesServiceTest {
 
 		String status = "Invalido";
 
-		List<LoteAves> result = loteAvesService.findByStatus(status);
+		List<LoteAvesDto> result = loteAvesService.findByStatus(status);
 
 		assertNotNull(result);
 		assertTrue(result.isEmpty());
@@ -67,7 +68,7 @@ class LoteAvesServiceTest {
 
 		Mockito.when(loteAvesRepository.findByStatus(AveStatus.POSTURA)).thenReturn(List.of());
 
-		List<LoteAves> result = loteAvesService.findByStatus(status);
+		List<LoteAvesDto> result = loteAvesService.findByStatus(status);
 
 		assertNotNull(result);
 		assertTrue(result.isEmpty());
@@ -92,7 +93,7 @@ class LoteAvesServiceTest {
 	void findByRacaExecption() {
 		String raca = "abc";
 
-		List<LoteAves> actual = loteAvesService.findByRaca(raca);
+		List<LoteAvesDto> actual = loteAvesService.findByRaca(raca);
 
 		assertNotNull(actual);
 		assertTrue(actual.isEmpty());

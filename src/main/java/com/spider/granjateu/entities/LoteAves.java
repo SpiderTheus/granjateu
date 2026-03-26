@@ -29,7 +29,7 @@ public class LoteAves implements java.io.Serializable {
   private int quantidade;
   private double valor;
   private LocalDate dataDeNascimento;
-  
+  private int semana;
   private AveStatus status;
 
   @OneToMany(mappedBy = "loteAves")
@@ -48,7 +48,8 @@ public class LoteAves implements java.io.Serializable {
     this.raca = raca;
     this.quantidade = quantidade;
     this.valor = valor;
-    this.dataDeNascimento = dataDeNascimento;  
+    this.dataDeNascimento = dataDeNascimento;
+    this.semana = calcularIdadeEmSemanas();
     this.status = status;
   }
 
@@ -62,6 +63,12 @@ public class LoteAves implements java.io.Serializable {
     }
     
     this.quantidade -= baixas;
+  }
+
+  public int calcularIdadeEmSemanas() {
+    LocalDate hoje = LocalDate.now();
+    long dias = java.time.temporal.ChronoUnit.DAYS.between(this.dataDeNascimento, hoje);
+    return (int) (dias / 7);
   }
 
 }

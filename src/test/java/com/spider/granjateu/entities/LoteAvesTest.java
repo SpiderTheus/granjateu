@@ -28,7 +28,16 @@ class LoteAvesTest {
 		LoteAves l = new LoteAves("abc", 123, 123.4D, LocalDate.of(2023, 1, 1), AveStatus.EM_CRESCIMENTO);
 		int baixas = 123;
 		l.subtrairQuantidadeBaixas(baixas);
-		
+
 		assertEquals(0, l.getQuantidade());
+	}
+
+	@Test
+	 void calcularIdadeEmSemanas() {
+		LoteAves l = new LoteAves("abc", 123, 123.4D, LocalDate.of(2026, 03, 1), AveStatus.EM_CRESCIMENTO);
+		int expected = 3;
+		int actual = l.calcularIdadeEmSemanas();
+
+		assertEquals(expected, actual);
 	}
 }
