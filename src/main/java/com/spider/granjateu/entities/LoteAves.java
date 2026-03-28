@@ -71,4 +71,10 @@ public class LoteAves implements java.io.Serializable {
     return (int) (dias / 7);
   }
 
+  public String getStatusString(){
+    if (this.status == null) 
+      return "";
+    return getStatus().name();
+  }
+
 }

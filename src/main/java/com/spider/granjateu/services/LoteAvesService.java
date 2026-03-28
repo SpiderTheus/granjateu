@@ -15,13 +15,11 @@ import com.spider.granjateu.services.exceptions.StatusInvalidExecption;
 @Service
 public class LoteAvesService {
 
-  
     private final LoteAvesRepository loteAvesRepository;
 
     public LoteAvesService(LoteAvesRepository loteAvesRepository) {
         this.loteAvesRepository = loteAvesRepository;
     }
-
 
     public List<LoteAvesDto> findByStatus(String status) {
         try {  
@@ -33,7 +31,6 @@ public class LoteAvesService {
         } catch (StatusInvalidExecption | NotFoundException e) {
             return List.of();
         } 
-
     }
     
     public AveStatus parseStatus(String status) {
@@ -86,23 +83,24 @@ public class LoteAvesService {
         return loteAvesRepository.findById(id).orElseThrow(() -> new NotFoundException("Lote de Aves com ID " + id));
     }
 
-    public LoteAves update(Long id, LoteAves loteAves) {
+    public LoteAvesDto update(Long id, LoteAvesDto loteAvesDto) {
         LoteAves existingLote = findById(id);
 
-        existingLote = manterAtributo(existingLote, loteAves);
+        existingLote = manterAtributo(existingLote, loteAvesDto);
         
-        return loteAvesRepository.save(existingLote);
+        return new LoteAvesDto(loteAvesRepository.save(existingLote));
     }
 
-    public LoteAves manterAtributo(LoteAves existingLote, LoteAves loteAves) {
-        if (loteAves.getRaca() != null) {
-            existingLote.setRaca(loteAves.getRaca());
+    public LoteAves manterAtributo(LoteAves existingLote, LoteAvesDto loteAvesDto) {
+        if (loteAvesDto.getRaca() != null) {
+            existingLote.setRaca(loteAvesDto.getRaca());
         }
-        if (loteAves.getQuantidade() != 0) {
-            existingLote.setQuantidade(loteAves.getQuantidade());
+        if (loteAvesDto.getQuantidade() != 0) {
+            existingLote.setQuantidade(loteAvesDto.getQuantidade());
         }
-        if (loteAves.getStatus() != null) {
-            existingLote.setStatus(loteAves.getStatus());
+        if (!loteAvesDto.getStatus().equals("")) {
+
+            existingLote.setStatus(parseStatus(loteAvesDto.getStatus()));
         }
         return existingLote;
     }

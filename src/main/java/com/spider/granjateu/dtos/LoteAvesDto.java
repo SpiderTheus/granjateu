@@ -23,8 +23,9 @@ public class LoteAvesDto {
         this.raca = loteAves.getRaca();
         this.quantidade = loteAves.getQuantidade();
         this.semanas = loteAves.getSemana();
-        this.status = loteAves.getStatus().toString();
+        this.status = loteAves.getStatusString(); 
     }
+
 
 
 }
