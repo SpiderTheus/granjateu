@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -24,9 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
-import java.time.LocalDate;
-import org.springframework.http.ResponseEntity;
+
 
 @ExtendWith(MockitoExtension.class)
 class LoteAvesControllerTest {
@@ -93,4 +92,29 @@ class LoteAvesControllerTest {
 							.andExpect(jsonPath("$.raca").value("racaAtualizada"))
            		.andExpect(jsonPath("$.quantidade").value(10));
 	}
+
+	@Test
+	void postLoteAves() throws Exception {
+		LoteAvesDto novoLoteAves = new LoteAvesDto();
+		novoLoteAves.setRaca("raca1");
+		novoLoteAves.setQuantidade(100);	
+		
+		when(loteAvesService.create(any(LoteAvesDto.class)))
+						.thenReturn(novoLoteAves);
+		
+		mockMvc.perform(MockMvcRequestBuilders.post("/lote-aves")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content("""
+								   {
+									"raca": "raca1",
+										"quantidade": 100
+										
+							 			 }
+									"""))
+						.andExpect(status().isOk())
+						.andExpect(jsonPath("$.raca").value("raca1"))
+					 	.andExpect(jsonPath("$.quantidade").value(100));
+						
+	}
+
 }

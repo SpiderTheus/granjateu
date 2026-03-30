@@ -1,5 +1,7 @@
 package com.spider.granjateu.dtos;
 
+import java.time.LocalDate;
+
 import com.spider.granjateu.entities.LoteAves;
 
 import lombok.Getter;
@@ -11,6 +13,9 @@ public class LoteAvesDto {
 
     private String raca;
     private int quantidade;
+    private double valor;
+    private LocalDate dataDeNascimento;
+  
     private double pesoMedio;
     private int semanas;
     private String status; 
@@ -22,6 +27,8 @@ public class LoteAvesDto {
     public LoteAvesDto(LoteAves loteAves) {
         this.raca = loteAves.getRaca();
         this.quantidade = loteAves.getQuantidade();
+        this.valor = loteAves.getValor();
+        this.dataDeNascimento = loteAves.getDataDeNascimento();
         this.semanas = loteAves.getSemana();
         this.status = loteAves.getStatusString(); 
     }

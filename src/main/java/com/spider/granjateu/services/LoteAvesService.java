@@ -98,11 +98,26 @@ public class LoteAvesService {
         if (loteAvesDto.getQuantidade() != 0) {
             existingLote.setQuantidade(loteAvesDto.getQuantidade());
         }
-        if (!loteAvesDto.getStatus().equals("")) {
+        if (!loteAvesDto.getStatus().equals("") || loteAvesDto.getStatus() != null) {
 
             existingLote.setStatus(parseStatus(loteAvesDto.getStatus()));
+        } 
+        if (loteAvesDto.getValor() != 0) {
+            existingLote.setValor(loteAvesDto.getValor());
+        }
+        if (loteAvesDto.getDataDeNascimento() != null) {
+            existingLote.setDataDeNascimento(loteAvesDto.getDataDeNascimento());
         }
         return existingLote;
+    }
+
+    public LoteAvesDto create(LoteAvesDto loteAvesDto) {
+        LoteAves loteAves = new LoteAves();
+        loteAves.setRaca(loteAvesDto.getRaca());
+        loteAves.setQuantidade(loteAvesDto.getQuantidade());
+        loteAves.setStatus(parseStatus(loteAvesDto.getStatus()));
+        
+        return new LoteAvesDto(save(loteAves));
     }
 
     public LoteAves save(LoteAves loteAves) {
