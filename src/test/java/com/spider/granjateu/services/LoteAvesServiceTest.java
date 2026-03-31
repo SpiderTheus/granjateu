@@ -138,8 +138,7 @@ class LoteAvesServiceTest {
 		loteAves.setDataDeNascimento(LocalDate.now());
 		loteAves.setStatus(AveStatus.INICIAL);
 
-		LoteAves loteAvesAtualizado = new LoteAves();
-		loteAvesAtualizado.setId(id);
+		LoteAvesDto loteAvesAtualizado = new LoteAvesDto();
 		loteAvesAtualizado.setRaca(null);
 		loteAvesAtualizado.setQuantidade(0);
 		loteAvesAtualizado.setDataDeNascimento(LocalDate.now());
@@ -148,7 +147,7 @@ class LoteAvesServiceTest {
 		Mockito.when(loteAvesRepository.findById(id)).thenReturn(java.util.Optional.of(loteAves));
 		Mockito.when(loteAvesRepository.save(Mockito.any(LoteAves.class))).thenReturn(loteAves);
 
-		LoteAvesDto result = loteAvesService.update(id, new LoteAvesDto(loteAvesAtualizado));
+		LoteAvesDto result = loteAvesService.update(id, loteAvesAtualizado);
 
 		assertNotNull(result);
 		assertEquals("Raca1", result.getRaca());
@@ -176,13 +175,13 @@ class LoteAvesServiceTest {
 		Mockito.when(loteAvesRepository.findById(id)).thenReturn(java.util.Optional.of(loteAves));
 		Mockito.when(loteAvesRepository.save(Mockito.any(LoteAves.class))).thenReturn(loteAves);
 
-		LoteAves result = loteAvesService.updateStatus(id, status);
+		LoteAvesDto result = loteAvesService.updateStatus(id, status);
 
 		assertNotNull(result);
-		assertEquals(id, result.getId());
+		
 		assertEquals("Raca1", result.getRaca());
 		assertEquals(100, result.getQuantidade());
-		assertEquals(AveStatus.POSTURA, result.getStatus());
+		assertEquals("POSTURA", result.getStatus());
 
 		Mockito.verify(loteAvesRepository).findById(id);
 		Mockito.verify(loteAvesRepository).save(Mockito.any(LoteAves.class));

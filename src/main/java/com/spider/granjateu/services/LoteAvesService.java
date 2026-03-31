@@ -35,6 +35,7 @@ public class LoteAvesService {
     
     public AveStatus parseStatus(String status) {
         try {
+            
             return AveStatus.valueOf(status.toUpperCase());
 
         } catch (IllegalArgumentException e) {
@@ -98,7 +99,7 @@ public class LoteAvesService {
         if (loteAvesDto.getQuantidade() != 0) {
             existingLote.setQuantidade(loteAvesDto.getQuantidade());
         }
-        if (!loteAvesDto.getStatus().equals("") || loteAvesDto.getStatus() != null) {
+        if (loteAvesDto.getStatus() != null && !loteAvesDto.getStatus().isEmpty()) {
 
             existingLote.setStatus(parseStatus(loteAvesDto.getStatus()));
         } 
@@ -120,20 +121,21 @@ public class LoteAvesService {
         return new LoteAvesDto(save(loteAves));
     }
 
-    public LoteAves save(LoteAves loteAves) {
-        return loteAvesRepository.save(loteAves);
-    }
-
+   
     public void delete(Long id) {
         LoteAves existingLote = findById(id);
         loteAvesRepository.delete(existingLote);
     }
 
-    public LoteAves updateStatus(Long id, String status) {
+
+    public LoteAvesDto updateStatus(Long id, String status) {
         LoteAves existingLote = findById(id);
         AveStatus parsedStatus = parseStatus(status);
         existingLote.setStatus(parsedStatus);
-        return loteAvesRepository.save(existingLote);
+
+        LoteAves atualizado = loteAvesRepository.save(existingLote);
+
+        return new LoteAvesDto(atualizado);
     }
 
     public LoteAves updateQuantidadeAvesMortas(Long id, int baixas) {
@@ -143,5 +145,10 @@ public class LoteAvesService {
         
         return loteAvesRepository.save(existingLote);
     }
+
+     public LoteAves save(LoteAves loteAves) {
+        return loteAvesRepository.save(loteAves);
+    }
+
 
 }

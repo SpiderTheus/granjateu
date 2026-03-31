@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,7 +46,6 @@ public class LoteAvesController {
      return ResponseEntity.ok(lotesAves);
   }
 
-
   @GetMapping
   public ResponseEntity<List<LoteAvesDto>> getAll() {
     var lotesAves = loteAvesService.findAll();
@@ -59,7 +59,6 @@ public class LoteAvesController {
     
      return ResponseEntity.ok(loteAves);
   }
-
 
   @PutMapping("/{id}")
   public ResponseEntity<LoteAvesDto> putLoteAves(@PathVariable Long id, @RequestBody LoteAvesDto novoLoteAves) {
@@ -81,5 +80,12 @@ public class LoteAvesController {
       
       return ResponseEntity.noContent().build();
 
+  }
+
+  @PatchMapping("/{id}/status")
+  public ResponseEntity<LoteAvesDto> patchStatusLoteAves(@PathVariable Long id, @RequestParam String status) {
+      var loteAvesDto = loteAvesService.updateStatus(id, status);  
+
+      return ResponseEntity.ok(loteAvesDto); 
   }
 }

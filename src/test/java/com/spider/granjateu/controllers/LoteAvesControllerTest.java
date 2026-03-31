@@ -25,6 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.http.ResponseEntity;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -67,54 +69,78 @@ class LoteAvesControllerTest {
 		Long id = 1L;
 
 		LoteAves loteAves = new LoteAves();
-			loteAves.setId(id);
-			loteAves.setRaca("raca1");
-			loteAves.setQuantidade(100);
+		 loteAves.setId(id);
+		 loteAves.setRaca("raca1");
+		 loteAves.setQuantidade(100);
 
-			LoteAvesDto novoLoteAves = new LoteAvesDto();
-			novoLoteAves.setRaca("racaAtualizada");
-			novoLoteAves.setQuantidade(10);
+		 LoteAvesDto novoLoteAves = new LoteAvesDto();
+		 novoLoteAves.setRaca("racaAtualizada");
+		 novoLoteAves.setQuantidade(10);
 
-	when(loteAvesService.update(eq(id), any(LoteAvesDto.class)))
-            .thenReturn(novoLoteAves);
+		when(loteAvesService.update(eq(id),any(LoteAvesDto.class))).
+		           thenReturn(novoLoteAves);
 
 
-			mockMvc.perform(put("/lote-aves/1")
-							.contentType(MediaType.APPLICATION_JSON)
-							.content("""
+		 mockMvc.perform(put("/lote-aves/1").
+		      contentType(MediaType.APPLICATION_JSON).
+		      content("""
 									   {
 										"raca": "racaAtualizada",
                     "quantidade": 10
                     
                			 }
-									"""))
-							.andExpect(status().isOk())
-							.andExpect(jsonPath("$.raca").value("racaAtualizada"))
-           		.andExpect(jsonPath("$.quantidade").value(10));
+									""")).
+		      andExpect(status().isOk()).
+		      andExpect(jsonPath("$.raca").value("racaAtualizada")).
+		            andExpect(jsonPath("$.quantidade").value(10));
 	}
 
 	@Test
 	void postLoteAves() throws Exception {
 		LoteAvesDto novoLoteAves = new LoteAvesDto();
 		novoLoteAves.setRaca("raca1");
-		novoLoteAves.setQuantidade(100);	
-		
-		when(loteAvesService.create(any(LoteAvesDto.class)))
-						.thenReturn(novoLoteAves);
-		
-		mockMvc.perform(MockMvcRequestBuilders.post("/lote-aves")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content("""
+		novoLoteAves.setQuantidade(100);
+
+		when(loteAvesService.create(any(LoteAvesDto.class))).
+		     thenReturn(novoLoteAves);
+
+		mockMvc.perform(MockMvcRequestBuilders.post("/lote-aves").
+		     contentType(MediaType.APPLICATION_JSON).
+		     content("""
 								   {
 									"raca": "raca1",
 										"quantidade": 100
 										
 							 			 }
-									"""))
-						.andExpect(status().isOk())
-						.andExpect(jsonPath("$.raca").value("raca1"))
-					 	.andExpect(jsonPath("$.quantidade").value(100));
-						
+									""")).
+		     andExpect(status().isOk()).
+		     andExpect(jsonPath("$.raca").value("raca1")).
+		      andExpect(jsonPath("$.quantidade").value(100));
+
 	}
 
+	@Test
+ 	void patchStatusLoteAves() throws Exception {
+		Long id = 1L;
+		String status = "Postura";
+
+		LoteAves loteAves = new LoteAves();
+		loteAves.setId(id);
+		loteAves.setRaca("Raca1");
+		loteAves.setQuantidade(100);
+		loteAves.setDataDeNascimento(java.time.LocalDate.now());
+		loteAves.setStatus(AveStatus.INICIAL);	
+
+		LoteAvesDto loteAvesAtualizada = new LoteAvesDto(loteAves);
+		loteAvesAtualizada.setStatus("POSTURA");
+
+
+		when(loteAvesService.updateStatus(id, status)).thenReturn(loteAvesAtualizada);
+
+		mockMvc.perform(MockMvcRequestBuilders.patch("/lote-aves/1/status").
+		     param("status", "Postura").
+		     contentType(MediaType.APPLICATION_JSON)).
+		     andExpect(status().isOk()).
+		     andExpect(jsonPath("$.status").value("POSTURA"));
+	}
 }
