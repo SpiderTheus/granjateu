@@ -31,6 +31,7 @@ public class LoteAves implements java.io.Serializable {
   private LocalDate dataDeNascimento;
   private int semana;
   private AveStatus status;
+  private AveStatus objetivo;
 
   @OneToMany(mappedBy = "loteAves")
   private List<Insumo> insumos;
@@ -44,13 +45,14 @@ public class LoteAves implements java.io.Serializable {
   public LoteAves() {
   }
 
-  public LoteAves(String raca, int quantidade, double valor, LocalDate dataDeNascimento, AveStatus status) {
+  public LoteAves(String raca, int quantidade, double valor, LocalDate dataDeNascimento, AveStatus status, AveStatus objetivo) {
     this.raca = raca;
     this.quantidade = quantidade;
     this.valor = valor;
     this.dataDeNascimento = dataDeNascimento;
     this.semana = calcularIdadeEmSemanas();
     this.status = status;
+    this.objetivo = objetivo;
   }
 
   public void subtrairQuantidadeBaixas(int baixas) {
@@ -71,10 +73,5 @@ public class LoteAves implements java.io.Serializable {
     return (int) (dias / 7);
   }
 
-  public String getStatusString(){
-    if (this.status == null) 
-      return "";
-    return getStatus().name();
-  }
 
 }

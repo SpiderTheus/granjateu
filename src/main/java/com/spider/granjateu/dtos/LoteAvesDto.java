@@ -3,6 +3,7 @@ package com.spider.granjateu.dtos;
 import java.time.LocalDate;
 
 import com.spider.granjateu.entities.LoteAves;
+import com.spider.granjateu.enums.AveStatus;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class LoteAvesDto {
     private double pesoMedio;
     private int semanas;
     private String status; 
+    private String objetivo;
 
 
     public LoteAvesDto() {
@@ -30,8 +32,15 @@ public class LoteAvesDto {
         this.valor = loteAves.getValor();
         this.dataDeNascimento = loteAves.getDataDeNascimento();
         this.semanas = loteAves.getSemana();
-        this.status = loteAves.getStatusString(); 
+        this.status = getEnumString(loteAves.getStatus()); 
+        this.objetivo = getEnumString(loteAves.getObjetivo());
     }
+
+      public String getEnumString(AveStatus status) {
+        if (status == null) 
+            return "";
+        return status.name();
+     }
 
 
 

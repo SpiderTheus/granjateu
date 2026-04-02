@@ -10,7 +10,7 @@ class InsumoTest {
 	void Insumo() {
 		long id = 1L;
 
-		LoteAves loteAves = new LoteAves("abc", 123, 123.4D,  LocalDate.of(2023, 1, 1), AveStatus.RECRIA);
+		LoteAves loteAves = new LoteAves("abc", 123, 123.4D,  LocalDate.of(2023, 1, 1), AveStatus.RECRIA, AveStatus.POSTURA);
 		AveStatus tipo = AveStatus.RECRIA;
 		Double quantidade = 123.4D;
 		Double valor = 123.4D;
