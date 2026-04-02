@@ -8,16 +8,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class LoteAvesTest {
 	@Test
 	void LoteAves() {
-		LoteAves lote = new LoteAves("Pintinho",  100, 1000,  LocalDate.now(),  AveStatus.INICIAL);
+		LoteAves lote = new LoteAves("Pintinho",  100, 1000,  LocalDate.now(),  AveStatus.CRIA);
 
 		assertEquals("Pintinho", lote.getRaca());
 		assertEquals(100, lote.getQuantidade());
-		assertEquals(AveStatus.INICIAL, lote.getStatus());
+		assertEquals(AveStatus.CRIA, lote.getStatus());
 	}
 
 	@Test
 	void LoteAvesId() {
-		LoteAves lote = new LoteAves("Pintinho", 100, 1000, LocalDate.of(2026, 3, 5),  AveStatus.INICIAL);
+		LoteAves lote = new LoteAves("Pintinho", 100, 1000, LocalDate.of(2026, 3, 5),  AveStatus.CRIA);
 
 		Long id = lote.getId();
 		assertNull(id);
@@ -25,7 +25,7 @@ class LoteAvesTest {
 
 	@Test
 	void subtrairQuantidadeBaixas() {
-		LoteAves l = new LoteAves("abc", 123, 123.4D, LocalDate.of(2023, 1, 1), AveStatus.EM_CRESCIMENTO);
+		LoteAves l = new LoteAves("abc", 123, 123.4D, LocalDate.of(2023, 1, 1), AveStatus.RECRIA);
 		int baixas = 123;
 		l.subtrairQuantidadeBaixas(baixas);
 
@@ -34,8 +34,8 @@ class LoteAvesTest {
 
 	@Test
 	 void calcularIdadeEmSemanas() {
-		LoteAves l = new LoteAves("abc", 123, 123.4D, LocalDate.of(2026, 03, 1), AveStatus.EM_CRESCIMENTO);
-		int expected = 3;
+		LoteAves l = new LoteAves("abc", 123, 123.4D, LocalDate.of(2026, 03, 1), AveStatus.RECRIA);
+		int expected = 4;
 		int actual = l.calcularIdadeEmSemanas();
 
 		assertEquals(expected, actual);

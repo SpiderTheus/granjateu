@@ -88,4 +88,6 @@ public class LoteAvesController {
 
       return ResponseEntity.ok(loteAvesDto); 
   }
+
+  
 }

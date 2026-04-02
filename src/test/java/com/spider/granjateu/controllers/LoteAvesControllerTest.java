@@ -25,9 +25,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
-import org.springframework.http.ResponseEntity;
-
 
 @ExtendWith(MockitoExtension.class)
 class LoteAvesControllerTest {
@@ -51,17 +48,17 @@ class LoteAvesControllerTest {
 		LoteAves loteAves = new LoteAves();
 		loteAves.setId(1L);
 		loteAves.setQuantidade(100);
-		loteAves.setStatus(AveStatus.INICIAL);
+		loteAves.setStatus(AveStatus.CRIA);
 
-		when(loteAvesService.findByStatus("INICIAL")).thenReturn(List.of(new LoteAvesDto(loteAves)));
+		when(loteAvesService.findByStatus("CRIA")).thenReturn(List.of(new LoteAvesDto(loteAves)));
 
 		mockMvc.perform(get("/lote-aves/status").
-		   param("status", "INICIAL").
+		   param("status", "CRIA").
 		   contentType(MediaType.APPLICATION_JSON)).
 		   andExpect(status().isOk()).
 		   andExpect(content().contentType(MediaType.APPLICATION_JSON)).
 		   andExpect(jsonPath("$[0].quantidade").value(100)).
-		   andExpect(jsonPath("$[0].status").value("INICIAL"));
+		   andExpect(jsonPath("$[0].status").value("CRIA"));
 	}
 
 	@Test
@@ -129,7 +126,7 @@ class LoteAvesControllerTest {
 		loteAves.setRaca("Raca1");
 		loteAves.setQuantidade(100);
 		loteAves.setDataDeNascimento(java.time.LocalDate.now());
-		loteAves.setStatus(AveStatus.INICIAL);	
+		loteAves.setStatus(AveStatus.CRIA);	
 
 		LoteAvesDto loteAvesAtualizada = new LoteAvesDto(loteAves);
 		loteAvesAtualizada.setStatus("POSTURA");
