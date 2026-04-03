@@ -10,7 +10,7 @@ import com.spider.granjateu.entities.LoteAves;
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.LoteAvesRepository;
 import com.spider.granjateu.services.exceptions.NotFoundException;
-import com.spider.granjateu.services.exceptions.StatusInvalidExecption;
+import com.spider.granjateu.services.exceptions.StatusInvalidException;
 
 @Service
 public class LoteAvesService {
@@ -28,7 +28,7 @@ public class LoteAvesService {
          
             return findAllDtos(lotes); 
 
-        } catch (StatusInvalidExecption | NotFoundException e) {
+        } catch (StatusInvalidException | NotFoundException e) {
             return List.of();
         } 
     }
@@ -39,7 +39,7 @@ public class LoteAvesService {
             return AveStatus.valueOf(status.toUpperCase());
 
         } catch (IllegalArgumentException e) {
-            throw new StatusInvalidExecption(status);
+            throw new StatusInvalidException(status);
         }
     }
 
