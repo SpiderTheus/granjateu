@@ -32,16 +32,8 @@ public class LoteAvesDto {
         this.valor = loteAves.getValor();
         this.dataDeNascimento = loteAves.getDataDeNascimento();
         this.semanas = loteAves.getSemana();
-        this.status = getEnumString(loteAves.getStatus()); 
-        this.objetivo = getEnumString(loteAves.getObjetivo());
+        this.status = loteAves.getStatus().getEnumString(loteAves.getStatus()); 
+        this.objetivo = loteAves.getObjetivo().getEnumString(loteAves.getObjetivo());
     }
-
-      public String getEnumString(AveStatus status) {
-        if (status == null) 
-            return "";
-        return status.name();
-     }
-
-
 
 }

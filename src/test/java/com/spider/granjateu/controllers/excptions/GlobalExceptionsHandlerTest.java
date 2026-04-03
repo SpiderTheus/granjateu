@@ -17,14 +17,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.spider.granjateu.controllers.LoteAvesController;
 import com.spider.granjateu.services.exceptions.NotFoundException;
-import static org.junit.jupiter.api.Assertions.*;
+
 import com.spider.granjateu.services.exceptions.StatusInvalidException;
-import jakarta.servlet.http.HttpServletRequest;
+
 
 import org.springframework.http.MediaType;
-import org.springframework.http.ProblemDetail;
-
-
 
 @ExtendWith(MockitoExtension.class)
 class GlobalExceptionsHandlerTest {
@@ -43,7 +40,6 @@ class GlobalExceptionsHandlerTest {
 		  setControllerAdvice(globalExceptionsHandler).
 		  build();
 	}
-
 
 	@Test
 	void handleResourceNotFoundException() throws Exception {
