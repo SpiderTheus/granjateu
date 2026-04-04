@@ -82,7 +82,7 @@ class LoteAvesServiceTest {
 
 		AveStatus expected = AveStatus.CRIA;
 
-		AveStatus actual = loteAvesService.parseStatus(status);
+		AveStatus actual = AveStatus.parseStatus(status);
 
 		assertEquals(expected, actual);
 

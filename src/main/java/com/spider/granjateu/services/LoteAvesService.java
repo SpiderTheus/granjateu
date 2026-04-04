@@ -23,7 +23,7 @@ public class LoteAvesService {
 
     public List<LoteAvesDto> findByStatus(String status) {
         try {  
-            AveStatus parsedStatus = parseStatus(status);
+            AveStatus parsedStatus = AveStatus.parseStatus(status);
             List<LoteAves> lotes = verificarLista(loteAvesRepository.findByStatus(parsedStatus));
          
             return findAllDtos(lotes); 
@@ -33,16 +33,7 @@ public class LoteAvesService {
         } 
     }
     
-    public AveStatus parseStatus(String status) {
-        try {
-            
-            return AveStatus.valueOf(status.toUpperCase());
-
-        } catch (IllegalArgumentException e) {
-            throw new StatusInvalidException(status);
-        }
-    }
-
+   
     public List<LoteAves> verificarLista(List<LoteAves> lotes) {
     if (lotes.isEmpty()) {
         throw new NotFoundException("Nenhum lote de aves encontrado com o status especificado");
@@ -101,7 +92,7 @@ public class LoteAvesService {
         }
         if (loteAvesDto.getStatus() != null && !loteAvesDto.getStatus().isEmpty()) {
 
-            existingLote.setStatus(parseStatus(loteAvesDto.getStatus()));
+            existingLote.setStatus(AveStatus.parseStatus(loteAvesDto.getStatus()));
         } 
         if (loteAvesDto.getValor() != 0) {
             existingLote.setValor(loteAvesDto.getValor());
@@ -116,7 +107,7 @@ public class LoteAvesService {
         LoteAves loteAves = new LoteAves();
         loteAves.setRaca(loteAvesDto.getRaca());
         loteAves.setQuantidade(loteAvesDto.getQuantidade());
-        loteAves.setStatus(parseStatus(loteAvesDto.getStatus()));
+        loteAves.setStatus(AveStatus.parseStatus(loteAvesDto.getStatus()));
         
         return new LoteAvesDto(save(loteAves));
     }
@@ -130,7 +121,7 @@ public class LoteAvesService {
 
     public LoteAvesDto updateStatus(Long id, String status) {
         LoteAves existingLote = findById(id);
-        AveStatus parsedStatus = parseStatus(status);
+        AveStatus parsedStatus = AveStatus.parseStatus(status);
         existingLote.setStatus(parsedStatus);
 
         LoteAves atualizado = loteAvesRepository.save(existingLote);

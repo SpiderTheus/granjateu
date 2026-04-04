@@ -1,5 +1,7 @@
 package com.spider.granjateu.entities;
 
+import java.time.Instant;
+
 import com.spider.granjateu.enums.AveStatus;
 
 import jakarta.persistence.Entity;
@@ -30,6 +32,8 @@ public class Insumo implements java.io.Serializable {
   private AveStatus tipo;
   private Double quantidade;
   private Double valor;
+  
+  private Instant dataEntrada;
 
   public Insumo() {
   } 
@@ -39,5 +43,6 @@ public class Insumo implements java.io.Serializable {
     this.tipo = tipo;
     this.quantidade = quantidade;
     this.valor = valor;
+    this.dataEntrada = Instant.now();
   }
 }

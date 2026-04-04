@@ -34,6 +34,7 @@ public class RegistroManejo implements java.io.Serializable {
   private double consumo;
   private double pesoMedio;
   private int perdas;
+
   
 
   public RegistroManejo() {
