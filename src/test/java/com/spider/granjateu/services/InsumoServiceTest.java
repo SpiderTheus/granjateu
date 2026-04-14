@@ -45,7 +45,7 @@ class InsumoServiceTest {
 
 		Mockito.when(insumoRepository.findByTipo(tipo)).thenReturn(insumos);
 
-		List<Insumo> resultado = insumoService.findByTipo(tipo.name());
+		List<Insumo> resultado = insumoService.findByTipo(tipo);
 
 		assertNotNull(resultado);
 		assertEquals(2, resultado.size());

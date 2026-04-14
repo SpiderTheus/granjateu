@@ -9,6 +9,7 @@ import com.spider.granjateu.entities.Insumo;
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.InsumoRepository;
 import com.spider.granjateu.services.exceptions.NotFoundException;
+import com.spider.granjateu.services.exceptions.StatusInvalidException;
 
 @Service
 public class InsumoService  {
@@ -27,12 +28,21 @@ public class InsumoService  {
     return findAllDtos(insumoRepository.findAll());
   }
 
+  public List<InsumoDto> findByTipoDto(String tipo) {
+    try {
+      AveStatus parsedTipo = AveStatus.parseStatus(tipo);
 
-  public List<Insumo> findByTipo(String tipo) {
+      List<Insumo> insumos = findByTipo(parsedTipo);
+      return findAllDtos(insumos);
 
-    AveStatus parsedTipo = AveStatus.parseStatus(tipo);
+    } catch (StatusInvalidException | NotFoundException e) {
+     return List.of();
+    } 
+  }
 
-    List<Insumo> insumos = insumoRepository.findByTipo(parsedTipo);
+
+  public List<Insumo> findByTipo(AveStatus tipo) {
+    List<Insumo> insumos = insumoRepository.findByTipo(tipo);
 
     if (insumos.isEmpty()) {
       throw new NotFoundException("Nenhum insumo encontrado para o tipo " + tipo);
