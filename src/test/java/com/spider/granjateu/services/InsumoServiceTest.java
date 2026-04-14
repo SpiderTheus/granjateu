@@ -2,7 +2,7 @@ package com.spider.granjateu.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -14,18 +14,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.client.HttpClientErrorException.NotFound;
 
-import com.spider.granjateu.dtos.InsumoDto;
 import com.spider.granjateu.entities.Insumo;
-import com.spider.granjateu.entities.LoteAves;
+
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.InsumoRepository;
-import com.spider.granjateu.services.exceptions.NotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 class InsumoServiceTest {
-	
+
 	@Mock
 	private InsumoRepository insumoRepository;
 
@@ -34,44 +31,29 @@ class InsumoServiceTest {
 
 
 	@Test
-	@DisplayName("Deve retornar uma lista de insumos para um lote de aves específico")
-	void DeveRetornarListaInsumosComIdLoteAves() {
-		Long id = 1L;
+	@DisplayName("Deve retornar uma lista de insumos com um específico")
+	void DeveRetornarListaInsumosComTipo() {
+		AveStatus tipo = AveStatus.CRIA; 
 
-		LoteAves loteAves = new LoteAves();
-		loteAves.setId(id);
+		Insumo insumo = new Insumo();
+		insumo.setTipo(tipo);
 
-		Insumo insumo1 = new Insumo();
-		insumo1.setLoteAves(loteAves);
 		Insumo insumo2 = new Insumo();
-		insumo2.setLoteAves(loteAves);
+		insumo2.setTipo(tipo);
 
-		List<Insumo> insumos = List.of(insumo1, insumo2);
+		List<Insumo> insumos = List.of(insumo, insumo2);
 
-	 Mockito.when(insumoRepository.findByLoteAvesId(id)).thenReturn(insumos);
+		Mockito.when(insumoRepository.findByTipo(tipo)).thenReturn(insumos);
 
-		List<InsumoDto> result = insumoService.findByLotesDto(id);
-		
-		assertNotNull(result);
-		assertEquals(2, result.size());
-		
-		Mockito.verify(insumoRepository).findByLoteAvesId(id);
+		List<Insumo> resultado = insumoService.findByTipo(tipo.name());
 
-	}
-
-	@Test
-	@DisplayName("deve Retornar execption NotFoundException quando não encontrar insumos para o lote de aves")
-	void DeveRetornarExceptionNotFoudQuandoListaForVazia() {
-		Long id = 1L;
-
-
-		List<InsumoDto> actual = insumoService.findByLotesDto(id);
-
-		assertNotNull(actual);
-		assertTrue(actual.isEmpty());	
-		assertThrows(NotFoundException.class, () -> insumoService.findByLoteAvesId(id));
+		assertNotNull(resultado);
+		assertEquals(2, resultado.size());
+		assertTrue(resultado.stream().allMatch(i -> i.getTipo() == tipo));
 
 	}
+
+
 
 
 }

@@ -34,9 +34,6 @@ public class LoteAves implements java.io.Serializable {
   private AveStatus objetivo;
 
   @OneToMany(mappedBy = "loteAves")
-  private List<Insumo> insumos;
-
-  @OneToMany(mappedBy = "loteAves")
   private List<RegistroManejo> registrosManejo;
 
   @OneToMany(mappedBy = "loteAves")

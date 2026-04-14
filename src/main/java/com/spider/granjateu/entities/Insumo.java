@@ -25,10 +25,6 @@ public class Insumo implements java.io.Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "lote_aves_id")
-  private LoteAves loteAves;
-
   private AveStatus tipo;
   private Double quantidade;
   private Double valor;
@@ -38,8 +34,8 @@ public class Insumo implements java.io.Serializable {
   public Insumo() {
   } 
 
-  public Insumo(LoteAves loteAves, AveStatus tipo, Double quantidade, Double valor) {
-    this.loteAves = loteAves;
+  public Insumo( AveStatus tipo, Double quantidade, Double valor) {
+  
     this.tipo = tipo;
     this.quantidade = quantidade;
     this.valor = valor;

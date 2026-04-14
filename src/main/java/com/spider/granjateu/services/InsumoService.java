@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.spider.granjateu.dtos.InsumoDto;
 import com.spider.granjateu.entities.Insumo;
-
+import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.InsumoRepository;
 import com.spider.granjateu.services.exceptions.NotFoundException;
 
@@ -27,22 +27,19 @@ public class InsumoService  {
     return findAllDtos(insumoRepository.findAll());
   }
 
-  public List<InsumoDto> findByLotesDto(Long loteAvesId){
-    try {
-        return findAllDtos(findByLoteAvesId(loteAvesId));
-    } catch (NotFoundException e) {
-        return List.of();
-    }
-  }
 
-  public List<Insumo> findByLoteAvesId(Long loteAvesId) {
-    List<Insumo> insumos = insumoRepository.findByLoteAvesId(loteAvesId);
+  public List<Insumo> findByTipo(String tipo) {
+
+    AveStatus parsedTipo = AveStatus.parseStatus(tipo);
+
+    List<Insumo> insumos = insumoRepository.findByTipo(parsedTipo);
 
     if (insumos.isEmpty()) {
-      throw new NotFoundException("Nenhum insumo encontrado para o lote de aves com ID " + loteAvesId);
+      throw new NotFoundException("Nenhum insumo encontrado para o tipo " + tipo);
     }
     return insumos;
   }
+
 
   public List<InsumoDto> findAllDtos(List<Insumo> insumos) {
     return insumos.stream().map(InsumoDto::new).toList();
