@@ -19,6 +19,8 @@ import com.spider.granjateu.entities.Insumo;
 
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.InsumoRepository;
+import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class InsumoServiceTest {
@@ -33,7 +35,7 @@ class InsumoServiceTest {
 	@Test
 	@DisplayName("Deve retornar uma lista de insumos com um específico")
 	void DeveRetornarListaInsumosComTipo() {
-		AveStatus tipo = AveStatus.CRIA; 
+		AveStatus tipo = AveStatus.CRIA;
 
 		Insumo insumo = new Insumo();
 		insumo.setTipo(tipo);
@@ -51,6 +53,16 @@ class InsumoServiceTest {
 		assertEquals(2, resultado.size());
 		assertTrue(resultado.stream().allMatch(i -> i.getTipo() == tipo));
 
+	}
+
+	@Test
+	@DisplayName("Deve lançar exception quando não encontrar insumos com o tipo especificado")
+	void createInsumo() {
+		Insumo insumo = new Insumo(AveStatus.ABATE, 123.4D, 123.4D);
+		Insumo expected = new Insumo(AveStatus.ABATE, 123.4D, 123.4D);
+		Insumo actual = insumoService.createInsumo(insumo);
+
+		assertEquals(expected, actual);
 	}
 
 
