@@ -91,7 +91,6 @@ public class InsumoService  {
   }
 
 
-
   public void delete(Long id) {
     Insumo insumo = findById(id);
     insumoRepository.delete(insumo);

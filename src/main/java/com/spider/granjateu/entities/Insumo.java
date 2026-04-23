@@ -34,7 +34,7 @@ public class Insumo implements java.io.Serializable {
   } 
 
   public Insumo( AveStatus tipo, Double quantidade, Double valor) {
-  
+
     this.tipo = tipo;
     this.quantidade = quantidade;
     this.valor = valor;

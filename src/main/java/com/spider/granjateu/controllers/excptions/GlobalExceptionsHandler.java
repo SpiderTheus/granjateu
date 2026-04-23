@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.spider.granjateu.services.exceptions.AttributeMandatoryException;
 import com.spider.granjateu.services.exceptions.NotFoundException;
 import com.spider.granjateu.services.exceptions.StatusInvalidException;
 
@@ -33,6 +34,15 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler{
     problemDetail.setType(URI.create(request.getRequestURI()));
     problemDetail.setDetail(ex.getMessage());
     return problemDetail;
+  }
+
+  @ExceptionHandler(AttributeMandatoryException.class)
+  public ProblemDetail handleAttributeMandatoryException(AttributeMandatoryException ex, HttpServletRequest request) {
+    ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
+    problemDetail.setTitle("Attribute Mandatory");
+    problemDetail.setType(URI.create(request.getRequestURI()));
+    problemDetail.setDetail(ex.getMessage());
+    return problemDetail; 
   }
 
 

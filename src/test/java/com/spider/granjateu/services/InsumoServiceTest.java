@@ -2,7 +2,7 @@ package com.spider.granjateu.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -19,8 +19,8 @@ import com.spider.granjateu.entities.Insumo;
 
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.InsumoRepository;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import com.spider.granjateu.services.exceptions.AttributeMandatoryException;
+
 
 @ExtendWith(MockitoExtension.class)
 class InsumoServiceTest {
@@ -57,12 +57,10 @@ class InsumoServiceTest {
 
 	@Test
 	@DisplayName("Deve lançar exception quando não encontrar insumos com o tipo especificado")
-	void createInsumo() {
-		Insumo insumo = new Insumo(AveStatus.ABATE, 123.4D, 123.4D);
-		Insumo expected = new Insumo(AveStatus.ABATE, 123.4D, 123.4D);
-		Insumo actual = insumoService.createInsumo(insumo);
-
-		assertEquals(expected, actual);
+	void createInsumoMandatoryException() {
+		Insumo insumo = new Insumo();
+	 	
+		assertThrows(AttributeMandatoryException.class, () -> insumoService.createInsumo(insumo));
 	}
 
 
