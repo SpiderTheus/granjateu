@@ -41,9 +41,9 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler{
     ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, ex.getMessage());
     problemDetail.setTitle("Attribute Mandatory");
     problemDetail.setType(URI.create(request.getRequestURI()));
-    problemDetail.setDetail(ex.getMessage());
+    problemDetail.setDetail(ex.getMessage() + "Atributo obrigatório não pode ser nulo ou vazio.");
     return problemDetail; 
   }
 
-
+  
 }

@@ -1,14 +1,19 @@
-package com.spider.granjateu.controllers.excptions;
+package com.spider.granjateu.controllers;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spider.granjateu.entities.Insumo;
 import com.spider.granjateu.services.InsumoService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -39,5 +44,28 @@ public class InsumoController {
 
     return ResponseEntity.ok(insumos);
   }
+  
+  @PutMapping("/{id}")
+  public ResponseEntity<Insumo> update(@PathVariable Long id, @RequestBody Insumo insumo) {
+    Insumo updatedInsumo = insumoService.update(id, insumo);
+
+    return ResponseEntity.ok(updatedInsumo);  
+  }
+  
+  @PostMapping
+  public ResponseEntity<Insumo> create(@RequestBody Insumo insumo) {
+    Insumo createdInsumo = insumoService.createInsumo(insumo);
+
+    return ResponseEntity.ok(createdInsumo);
+    
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    insumoService.delete(id);
+    return ResponseEntity.noContent().build();
+  }
+
+
 
 }
