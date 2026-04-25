@@ -18,7 +18,7 @@ import lombok.Setter;
 @Table(name = "registro_manejo")
 @Getter
 @Setter
-public class RegistroManejo implements java.io.Serializable {
+public class ManejoSemanal implements java.io.Serializable {
   private static final long serialVersionUID = 1L;
 
   @Id
@@ -32,21 +32,21 @@ public class RegistroManejo implements java.io.Serializable {
   private LocalDate data;
   private String observacao;
   private double consumo;
-  private double pesoMedio;
   private int perdas;
+  private int semana;
+  private int ovosColetados;
 
-  
-
-  public RegistroManejo() {
+  public ManejoSemanal() {
   }
 
-  public RegistroManejo(LoteAves loteAves, String observacao, double consumo, double pesoMedio, int perdas) {
+  public ManejoSemanal(LoteAves loteAves, String observacao, double consumo, int perdas, int ovosColetados) {
     this.loteAves = loteAves;
     this.data = LocalDate.now();
     this.observacao = observacao;
     this.consumo = consumo;
-    this.pesoMedio = pesoMedio;
     this.perdas = perdas;
+    this.semana = loteAves.getSemana();
+    this.ovosColetados = ovosColetados;
   }
 
 }

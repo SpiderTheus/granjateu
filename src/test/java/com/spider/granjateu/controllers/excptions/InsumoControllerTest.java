@@ -3,15 +3,13 @@ package com.spider.granjateu.controllers.excptions;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.beans.Transient;
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,10 +24,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import com.spider.granjateu.controllers.InsumoController;
 import com.spider.granjateu.entities.Insumo;
 import com.spider.granjateu.services.InsumoService;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+
 import com.spider.granjateu.enums.AveStatus;
-import org.springframework.http.ResponseEntity;
+
 
 
 
