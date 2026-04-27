@@ -22,21 +22,20 @@ public class ManejoSemanalService {
     this.loteAvesService = loteAvesService;
   }
 
-  public List<ManejoSemanal> findAll() {
-    return manejoSemanalRepository.findAll();
+  public List<ManejoSemanalDto> findAll() {
+    return changeToDto(manejoSemanalRepository.findAll());
   }
 
-  public List<ManejoSemanal> findByLoteAvesId(Long loteAvesId) {
+  public List<ManejoSemanalDto> findByLoteAvesId(Long loteAvesId) {
     try {
       loteAvesService.findById(loteAvesId);
-      return manejoSemanalRepository.findByLoteAvesId(loteAvesId);
-
+      return changeToDto(manejoSemanalRepository.findByLoteAvesId(loteAvesId));
     } catch (Exception e) {
       throw new NotFoundException("Lote de aves não encontrado com id: " + loteAvesId);
     }
   }
 
-  public List<ManejoSemanal> findByDataBetween(LocalDate dataInicial, LocalDate dataFinal) {
+  public List<ManejoSemanalDto> findByDataBetween(LocalDate dataInicial, LocalDate dataFinal) {
       if (dataInicial.isAfter(dataFinal)) {
           throw new IllegalArgumentException("Data inicial deve ser anterior à data final");
       }
@@ -47,7 +46,7 @@ public class ManejoSemanalService {
           throw new NotFoundException("Nenhum manejo semanal encontrado entre as datas");
       }
 
-      return manejos;
+      return changeToDto(manejos);
     
   }
 

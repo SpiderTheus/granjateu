@@ -38,12 +38,16 @@ class ManejoSemanalServiceTest {
 		LocalDate dataInicial = LocalDate.of(2023, 1, 1);
 		LocalDate dataFinal = LocalDate.of(2023, 12, 31);
 		List<ManejoSemanal> manejos = new ArrayList<>();
+		LoteAves loteAves = new LoteAves();
+		loteAves.setId(1L);
+
 		ManejoSemanal manejo = new ManejoSemanal();
+		manejo.setLoteAves(loteAves);
 		manejos.add(manejo);
 
 		Mockito.when(manejoSemanalRepository.findByDataBetween(dataInicial, dataFinal)).thenReturn(manejos);
 
-		List<ManejoSemanal> result = manejoSemanalService.findByDataBetween(dataInicial, dataFinal);
+		List<ManejoSemanalDto> result = manejoSemanalService.findByDataBetween(dataInicial, dataFinal);
 
 		assertNotNull(result);
 		assertEquals(1, result.size());
