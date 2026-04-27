@@ -55,7 +55,7 @@ class ManejoSemanalServiceTest {
 	}
 
 	@Test
-		void changeToDto() {
+	 void changeToDto() {
 		long loteAvesId = 1L;
 		List<ManejoSemanal> manejos = new ArrayList<>();
 		LoteAves loteAves = new LoteAves();
@@ -65,9 +65,34 @@ class ManejoSemanalServiceTest {
 		manejo.setObservacao("Observação de teste");
 		manejos.add(manejo);
 
-		List<ManejoSemanalDto> dtos = manejoSemanalService.changeToDto(manejos);	
+		List<ManejoSemanalDto> dtos = manejoSemanalService.changeToDto(manejos);
 
 		assertNotNull(dtos);
 		assertEquals(1, dtos.size());
-		assertEquals("Observação de teste", dtos.get(0).getObservacao());}
+		assertEquals("Observação de teste",   dtos.get(0).getObservacao());}
+
+	@Test
+ 	void create() {
+		long loteAvesId = 1L;
+		LoteAves loteAves = new LoteAves();
+		loteAves.setId(loteAvesId);
+		ManejoSemanalDto manejoSemanalDto = new ManejoSemanalDto();
+		manejoSemanalDto.setLoteAvesId(loteAvesId);
+		manejoSemanalDto.setObservacao("Observação de teste");
+
+		ManejoSemanal manejoSemanalExpect = new ManejoSemanal(loteAves, manejoSemanalDto);
+		manejoSemanalExpect.setId(1L);
+
+		Mockito.when(loteAvesService.findById(loteAvesId)).thenReturn(loteAves);
+		Mockito.when(manejoSemanalRepository.save(Mockito.any(ManejoSemanal.class))).thenReturn(manejoSemanalExpect);
+
+		ManejoSemanalDto result = manejoSemanalService.create(manejoSemanalDto);
+
+		assertNotNull(result);
+		assertEquals(1L, result.getLoteAvesId());
+		assertEquals(manejoSemanalExpect.getObservacao(), result.getObservacao());
+
+		Mockito.verify(loteAvesService).findById(loteAvesId);
+		Mockito.verify(manejoSemanalRepository).save(Mockito.any(ManejoSemanal.class));
+	}
 }

@@ -4,6 +4,7 @@ package com.spider.granjateu.entities;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.spider.granjateu.dtos.ManejoSemanalDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,14 +43,14 @@ public class ManejoSemanal implements java.io.Serializable {
   public ManejoSemanal() {
   }
 
-  public ManejoSemanal(LoteAves loteAves, String observacao, double consumo, int perdas, int ovosColetados) {
+  public ManejoSemanal(LoteAves loteAves, ManejoSemanalDto manejoSemanalDto) {
     this.loteAves = loteAves;
     this.data = LocalDate.now();
-    this.observacao = observacao;
-    this.consumo = consumo;
-    this.perdas = perdas;
+    this.observacao = manejoSemanalDto.getObservacao();
+    this.consumo = manejoSemanalDto.getConsumo();
+    this.perdas = manejoSemanalDto.getPerdas();
     this.semana = loteAves.getSemana();
-    this.ovosColetados = ovosColetados;
+    this.ovosColetados = manejoSemanalDto.getOvosColetados();
   }
 
 }

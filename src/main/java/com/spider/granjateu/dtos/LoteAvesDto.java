@@ -40,4 +40,5 @@ public class LoteAvesDto {
         this.objetivo = AveStatus.getEnumString(loteAves.getObjetivo());
     }
 
+
 }

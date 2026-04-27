@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.spider.granjateu.dtos.ManejoSemanalDto;
+import com.spider.granjateu.entities.LoteAves;
 import com.spider.granjateu.entities.ManejoSemanal;
 import com.spider.granjateu.repositories.ManejoSemanalRepository;
 import com.spider.granjateu.services.exceptions.NotFoundException;
@@ -58,6 +59,16 @@ public class ManejoSemanalService {
     return manejos.stream()
             .map(ManejoSemanalDto::new)
             .toList();
-}
+}  
+  public ManejoSemanalDto create(ManejoSemanalDto manejoSemanalDto) {
+    LoteAves loteAves = loteAvesService.findById(manejoSemanalDto.getLoteAvesId());
+    ManejoSemanal manejoSemanal = new ManejoSemanal(loteAves, manejoSemanalDto);
+    return new ManejoSemanalDto(save(manejoSemanal));
+  }
+
+
+  public ManejoSemanal save(ManejoSemanal manejoSemanal) {
+    return manejoSemanalRepository.save(manejoSemanal);
+  }
 
 }
