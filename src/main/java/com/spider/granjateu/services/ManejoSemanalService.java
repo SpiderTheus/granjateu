@@ -23,6 +23,11 @@ public class ManejoSemanalService {
     this.loteAvesService = loteAvesService;
   }
 
+  public ManejoSemanal findById(Long id) {
+    return manejoSemanalRepository.findById(id)
+            .orElseThrow(() -> new NotFoundException("Manejo semanal não encontrado com id: " + id));
+  }
+
   public List<ManejoSemanalDto> findAll() {
     return changeToDto(manejoSemanalRepository.findAll());
   }
@@ -66,9 +71,27 @@ public class ManejoSemanalService {
     return new ManejoSemanalDto(save(manejoSemanal));
   }
 
-
   public ManejoSemanal save(ManejoSemanal manejoSemanal) {
     return manejoSemanalRepository.save(manejoSemanal);
   }
+
+  public ManejoSemanalDto update(Long id, ManejoSemanalDto manejoSemanalDto) {
+    ManejoSemanal manejoSemanal = findById(id);
+
+    LoteAves loteAves = loteAvesService.findById(manejoSemanalDto.getLoteAvesId());
+    manejoSemanal.setLoteAves(loteAves);
+
+    manejoSemanal.setObservacao(manejoSemanalDto.getObservacao());
+    manejoSemanal.setConsumo(manejoSemanalDto.getConsumo());
+    manejoSemanal.setPerdas(manejoSemanalDto.getPerdas());
+
+    return new ManejoSemanalDto(save(manejoSemanal));
+}
+
+  public void delete(Long id) {
+    ManejoSemanal manejoSemanal = findById(id);
+    manejoSemanalRepository.delete(manejoSemanal);
+  }
+
 
 }
