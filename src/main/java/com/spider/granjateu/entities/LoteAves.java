@@ -3,6 +3,7 @@ package com.spider.granjateu.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spider.granjateu.enums.AveStatus;
 
 import jakarta.persistence.Entity;
@@ -28,6 +29,8 @@ public class LoteAves implements java.io.Serializable {
   private String raca;
   private int quantidade;
   private double valor;
+  
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
   private LocalDate dataDeNascimento;
   private int semana;
   private AveStatus status;
@@ -35,9 +38,6 @@ public class LoteAves implements java.io.Serializable {
 
   @OneToMany(mappedBy = "loteAves")
   private List<ManejoSemanal> registrosManejo;
-
-  @OneToMany(mappedBy = "loteAves")
-  private List<RegistroPostura> registrosPostura;
 
   public LoteAves() {
   }

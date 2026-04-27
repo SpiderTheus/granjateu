@@ -17,6 +17,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
+import com.spider.granjateu.dtos.ManejoSemanalDto;
 
 @ExtendWith(MockitoExtension.class)
 class ManejoSemanalServiceTest {
@@ -26,6 +27,9 @@ class ManejoSemanalServiceTest {
 
 	@InjectMocks
 	private ManejoSemanalService manejoSemanalService;
+
+	@Mock
+	private LoteAvesService loteAvesService;
 
 	@Test
 	@DisplayName("Deve retornar uma lista de ManejoSemanal quando os parâmetros forem válidos")
@@ -46,4 +50,20 @@ class ManejoSemanalServiceTest {
 		Mockito.verify(manejoSemanalRepository).findByDataBetween(dataInicial, dataFinal);
 	}
 
+	@Test
+		void changeToDto() {
+		long loteAvesId = 1L;
+		List<ManejoSemanal> manejos = new ArrayList<>();
+		LoteAves loteAves = new LoteAves();
+		loteAves.setId(loteAvesId);
+		ManejoSemanal manejo = new ManejoSemanal();
+		manejo.setLoteAves(loteAves);
+		manejo.setObservacao("Observação de teste");
+		manejos.add(manejo);
+
+		List<ManejoSemanalDto> dtos = manejoSemanalService.changeToDto(manejos);	
+
+		assertNotNull(dtos);
+		assertEquals(1, dtos.size());
+		assertEquals("Observação de teste", dtos.get(0).getObservacao());}
 }

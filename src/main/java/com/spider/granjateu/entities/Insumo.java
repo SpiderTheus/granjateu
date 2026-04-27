@@ -1,7 +1,9 @@
 package com.spider.granjateu.entities;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spider.granjateu.enums.AveStatus;
 
 import jakarta.persistence.Entity;
@@ -27,8 +29,9 @@ public class Insumo implements java.io.Serializable {
   private AveStatus tipo;
   private Double quantidade;
   private Double valor;
-  
-  private Instant dataEntrada;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+  private LocalDate dataEntrada;
 
   public Insumo() {
   } 
@@ -38,6 +41,6 @@ public class Insumo implements java.io.Serializable {
     this.tipo = tipo;
     this.quantidade = quantidade;
     this.valor = valor;
-    this.dataEntrada = Instant.now();
+    this.dataEntrada = LocalDate.now();
   }
 }

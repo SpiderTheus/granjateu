@@ -2,6 +2,7 @@ package com.spider.granjateu.dtos;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spider.granjateu.entities.LoteAves;
 import com.spider.granjateu.enums.AveStatus;
 
@@ -15,6 +16,8 @@ public class LoteAvesDto {
     private String raca;
     private int quantidade;
     private double valor;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataDeNascimento;
   
     private double pesoMedio;

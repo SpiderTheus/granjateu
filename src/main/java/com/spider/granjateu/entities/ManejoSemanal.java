@@ -3,6 +3,8 @@ package com.spider.granjateu.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +31,7 @@ public class ManejoSemanal implements java.io.Serializable {
   @JoinColumn(name = "lote_aves_id")
   private LoteAves loteAves;
   
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
   private LocalDate data;
   private String observacao;
   private double consumo;
