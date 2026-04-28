@@ -1,10 +1,8 @@
 package com.spider.granjateu.services;
 
-import com.spider.granjateu.dtos.LoteAvesDto;
 import com.spider.granjateu.entities.LoteAves;
 import com.spider.granjateu.entities.ManejoSemanal;
-import com.spider.granjateu.enums.AveStatus;
-import com.spider.granjateu.repositories.LoteAvesRepository;
+
 import com.spider.granjateu.repositories.ManejoSemanalRepository;
 import java.time.LocalDate;
 import java.util.ArrayList;
