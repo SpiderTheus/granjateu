@@ -3,8 +3,12 @@ package com.spider.granjateu.entities;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spider.granjateu.enums.AveStatus;
+
+import com.spider.granjateu.dtos.LoteAvesDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +34,7 @@ public class LoteAves implements java.io.Serializable {
   private int quantidade;
   private double valor;
   
+
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
   private LocalDate dataDeNascimento;
   private int semana;
@@ -52,6 +57,16 @@ public class LoteAves implements java.io.Serializable {
     this.objetivo = objetivo;
   }
 
+  public LoteAves(LoteAvesDto loteAvesDto) {
+    this.raca = loteAvesDto.getRaca();
+    this.quantidade = loteAvesDto.getQuantidade();
+    this.valor = loteAvesDto.getValor();
+    this.dataDeNascimento = loteAvesDto.getDataDeNascimento();
+    this.semana = calcularIdadeEmSemanas();
+    this.status = AveStatus.parseStatus(loteAvesDto.getStatus());
+    this.objetivo = AveStatus.parseStatus(loteAvesDto.getObjetivo());
+  }
+
   public void subtrairQuantidadeBaixas(int baixas) {
     if (baixas < 0) {
         this.quantidade = 0;
@@ -65,6 +80,10 @@ public class LoteAves implements java.io.Serializable {
   }
 
   public int calcularIdadeEmSemanas() {
+    if (this.dataDeNascimento == null) {
+       throw new IllegalStateException("A data de nascimento não pode ser nula para calcular a idade em semanas."); 
+    }
+
     LocalDate hoje = LocalDate.now();
     long dias = java.time.temporal.ChronoUnit.DAYS.between(this.dataDeNascimento, hoje);
     return (int) (dias / 7);

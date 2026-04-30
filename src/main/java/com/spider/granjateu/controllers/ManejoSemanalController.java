@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +17,7 @@ import com.spider.granjateu.entities.ManejoSemanal;
 import com.spider.granjateu.services.ManejoSemanalService;
 
 @RestController
-@RequestMapping("/manejo-semanal")
+@RequestMapping("/manejo")
 public class ManejoSemanalController {
 
   ManejoSemanalService manejoSemanalService;
@@ -47,6 +49,15 @@ public class ManejoSemanalController {
   public ResponseEntity<List<ManejoSemanalDto>> findByDataBetween(@RequestParam String dataInicial, @RequestParam String dataFinal) {
     return ResponseEntity.ok(manejoSemanalService.findByDataBetween(LocalDate.parse(dataInicial), LocalDate.parse(dataFinal)));
   } 
+
+  @PostMapping
+  public ResponseEntity<ManejoSemanalDto> create(@RequestBody ManejoSemanalDto manejoSemanalDto) {
+    ManejoSemanalDto manejoSemanal = manejoSemanalService.create(manejoSemanalDto);
+   
+    return ResponseEntity.ok(manejoSemanal);
+  } 
+
+
 
   
 }

@@ -104,12 +104,11 @@ public class LoteAvesService {
     }
 
     public LoteAvesDto create(LoteAvesDto loteAvesDto) {
-        LoteAves loteAves = new LoteAves();
-        loteAves.setRaca(loteAvesDto.getRaca());
-        loteAves.setQuantidade(loteAvesDto.getQuantidade());
-        loteAves.setStatus(AveStatus.parseStatus(loteAvesDto.getStatus()));
-        
+        LoteAves loteAves = new LoteAves(loteAvesDto);
+            
         return new LoteAvesDto(save(loteAves));
+      
+        
     }
 
    
@@ -138,6 +137,7 @@ public class LoteAvesService {
     }
 
      public LoteAves save(LoteAves loteAves) {
+        
         return loteAvesRepository.save(loteAves);
     }
 

@@ -19,8 +19,7 @@ public class LoteAvesDto {
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataDeNascimento;
-  
-    private double pesoMedio;
+
     private int semanas;
     private String status; 
     private String objetivo;
@@ -33,6 +32,7 @@ public class LoteAvesDto {
         this.quantidade = loteAves.getQuantidade();
         this.valor = loteAves.getValor();
         this.dataDeNascimento = loteAves.getDataDeNascimento();
+        
         this.semanas = loteAves.getSemana();
         loteAves.getStatus();
         this.status = AveStatus.getEnumString(loteAves.getStatus()); 

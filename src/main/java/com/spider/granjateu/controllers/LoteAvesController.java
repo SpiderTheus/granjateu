@@ -72,7 +72,7 @@ public class LoteAvesController {
     var loteAves = loteAvesService.create(novoLoteAves);
       
       return ResponseEntity.ok(loteAves);
-  }
+  } 
   
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteLoteAves(@PathVariable Long id) {

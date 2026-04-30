@@ -23,15 +23,6 @@ public class ManejoSemanalDto {
   public ManejoSemanalDto() {
   }
 
-  public ManejoSemanalDto(ManejoSemanal manejoSemanal) {
-    this.loteAvesId = manejoSemanal.getLoteAves().getId();
-    this.data = manejoSemanal.getData();
-    this.observacao = manejoSemanal.getObservacao();
-    this.consumo = manejoSemanal.getConsumo();
-    this.perdas = manejoSemanal.getPerdas();
-    this.ovosColetados = manejoSemanal.getOvosColetados();
-  }
-
   public ManejoSemanalDto(long loteAvesId, LocalDate data, String observacao, double consumo, int perdas, int ovosColetados) {
     this.loteAvesId = loteAvesId;
     this.data = data;
@@ -41,6 +32,17 @@ public class ManejoSemanalDto {
     this.ovosColetados = ovosColetados;
   }
 
+
+  public ManejoSemanalDto(ManejoSemanal manejoSemanal) {
+    this.loteAvesId = manejoSemanal.getLoteAves().getId();
+    this.data = manejoSemanal.getData();
+    this.observacao = manejoSemanal.getObservacao();
+    this.consumo = manejoSemanal.getConsumo();
+    this.perdas = manejoSemanal.getPerdas();
+    this.ovosColetados = manejoSemanal.getOvosColetados();
+  }
+
+  
   
 
 
