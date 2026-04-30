@@ -64,4 +64,6 @@ public class ManejoSemanalController {
     
     return ResponseEntity.ok(updatedManejoSemanal);
   }
+
+  
 }

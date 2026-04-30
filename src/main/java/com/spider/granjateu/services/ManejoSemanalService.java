@@ -77,19 +77,29 @@ public class ManejoSemanalService {
 
   public ManejoSemanalDto update(Long id, ManejoSemanalDto manejoSemanalDto) {
     ManejoSemanal manejoSemanal = findById(id);
+    manejoSemanal = manterAtributos(manejoSemanal, manejoSemanalDto);
 
-    LoteAves loteAves = loteAvesService.findById(manejoSemanalDto.getLoteAvesId());
-    manejoSemanal.setLoteAves(loteAves);
-
-    manejoSemanal.setObservacao(manejoSemanalDto.getObservacao());
-    manejoSemanal.setConsumo(manejoSemanalDto.getConsumo());
-    manejoSemanal.setPerdas(manejoSemanalDto.getPerdas());
-    manejoSemanal.setOvosColetados(manejoSemanalDto.getOvosColetados());
-
-    return new ManejoSemanalDto(save(manejoSemanal));
+    return new ManejoSemanalDto(manejoSemanal);
 }
+  
+  public ManejoSemanal manterAtributos(ManejoSemanal manejoSemanal, ManejoSemanalDto manejoSemanalDto) {
+    if (manejoSemanalDto.getObservacao() != null) {
+      manejoSemanal.setObservacao(manejoSemanalDto.getObservacao());
+    }
+    if (manejoSemanalDto.getConsumo() != 0) {
+      manejoSemanal.setConsumo(manejoSemanalDto.getConsumo());
+    }
+    if (manejoSemanalDto.getPerdas() != 0) {
+      manejoSemanal.setPerdas(manejoSemanalDto.getPerdas());
+    }
+    if (manejoSemanalDto.getOvosColetados() != 0) {
+      manejoSemanal.setOvosColetados(manejoSemanalDto.getOvosColetados());
+  }
 
-  public void delete(Long id) {
+    return save(manejoSemanal);
+  }
+
+    public void delete(Long id) {
     ManejoSemanal manejoSemanal = findById(id);
     manejoSemanalRepository.delete(manejoSemanal);
   }
