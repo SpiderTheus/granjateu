@@ -84,6 +84,7 @@ public class ManejoSemanalService {
     manejoSemanal.setObservacao(manejoSemanalDto.getObservacao());
     manejoSemanal.setConsumo(manejoSemanalDto.getConsumo());
     manejoSemanal.setPerdas(manejoSemanalDto.getPerdas());
+    manejoSemanal.setOvosColetados(manejoSemanalDto.getOvosColetados());
 
     return new ManejoSemanalDto(save(manejoSemanal));
 }
