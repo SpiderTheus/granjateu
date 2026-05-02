@@ -11,6 +11,8 @@ import com.spider.granjateu.entities.ManejoSemanal;
 import com.spider.granjateu.repositories.ManejoSemanalRepository;
 import com.spider.granjateu.services.exceptions.NotFoundException;
 
+
+
 @Service
 public class ManejoSemanalService {
 
@@ -67,6 +69,12 @@ public class ManejoSemanalService {
 }  
   public ManejoSemanalDto create(ManejoSemanalDto manejoSemanalDto) {
     LoteAves loteAves = loteAvesService.findById(manejoSemanalDto.getLoteAvesId());
+
+    if (manejoSemanalDto.getPerdas() > 0) {
+      loteAves.subtrairQuantidadeBaixas(manejoSemanalDto.getPerdas());
+      loteAvesService.save(loteAves);
+    }
+
     ManejoSemanal manejoSemanal = new ManejoSemanal(loteAves, manejoSemanalDto);
     return new ManejoSemanalDto(save(manejoSemanal));
   }
@@ -86,20 +94,24 @@ public class ManejoSemanalService {
     if (manejoSemanalDto.getObservacao() != null) {
       manejoSemanal.setObservacao(manejoSemanalDto.getObservacao());
     }
-    if (manejoSemanalDto.getConsumo() != 0) {
+    if (manejoSemanalDto.getConsumo() != null) {
       manejoSemanal.setConsumo(manejoSemanalDto.getConsumo());
     }
     if (manejoSemanalDto.getPerdas() != 0) {
       manejoSemanal.setPerdas(manejoSemanalDto.getPerdas());
     }
     if (manejoSemanalDto.getOvosColetados() != 0) {
-      manejoSemanal.setOvosColetados(manejoSemanalDto.getOvosColetados());
-  }
-
+      manejoSemanal.setOvosColetados(manejoSemanalDto.getOvosColetados());}
+    if (manejoSemanalDto.getData() != null) {
+      manejoSemanal.setData(manejoSemanalDto.getData());
+    }
+     if (manejoSemanalDto.getLoteAvesId() != 0) {
+      LoteAves loteAves = loteAvesService.findById(manejoSemanalDto.getLoteAvesId());
+      manejoSemanal.setLoteAves(loteAves);
+     }
     return save(manejoSemanal);
   }
-
-    public void delete(Long id) {
+  public void delete(Long id) {
     ManejoSemanal manejoSemanal = findById(id);
     manejoSemanalRepository.delete(manejoSemanal);
   }

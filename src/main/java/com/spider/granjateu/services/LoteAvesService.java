@@ -29,7 +29,7 @@ public class LoteAvesService {
             return findAllDtos(lotes); 
 
         } catch (StatusInvalidException | NotFoundException e) {
-            return List.of();
+            throw new NotFoundException("Nenhum lote de aves encontrado com o status especificado, ou status inválido: " + status);
         } 
     }
     
@@ -50,7 +50,7 @@ public class LoteAvesService {
     }
 
     public List<LoteAves> buscarPorRaca(String raca) {
-        List<LoteAves> lotes = loteAvesRepository.findByRaca(raca);
+        List<LoteAves> lotes = loteAvesRepository.findByRacaContainingIgnoreCase(raca);
         
         if (lotes.isEmpty()) {
             throw new NotFoundException("Nenhum lote de aves encontrado com a raça especificada");
@@ -94,7 +94,7 @@ public class LoteAvesService {
 
             existingLote.setStatus(AveStatus.parseStatus(loteAvesDto.getStatus()));
         } 
-        if (loteAvesDto.getValor() != 0) {
+        if (loteAvesDto.getValor() != null) {
             existingLote.setValor(loteAvesDto.getValor());
         }
         if (loteAvesDto.getDataDeNascimento() != null) {

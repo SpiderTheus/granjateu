@@ -1,9 +1,11 @@
 package com.spider.granjateu.controllers;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,7 +50,14 @@ public class ManejoSemanalController {
 
   @GetMapping("/data")
   public ResponseEntity<List<ManejoSemanalDto>> findByDataBetween(@RequestParam String dataInicial, @RequestParam String dataFinal) {
-    return ResponseEntity.ok(manejoSemanalService.findByDataBetween(LocalDate.parse(dataInicial), LocalDate.parse(dataFinal)));
+
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    LocalDate inicio = LocalDate.parse(dataInicial, formatter);
+    LocalDate fim = LocalDate.parse(dataFinal, formatter);
+
+    return ResponseEntity.ok(manejoSemanalService.findByDataBetween(inicio,fim));
   } 
 
   @PostMapping
@@ -65,5 +74,9 @@ public class ManejoSemanalController {
     return ResponseEntity.ok(updatedManejoSemanal);
   }
 
-  
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
+    manejoSemanalService.delete(id);
+    return ResponseEntity.noContent().build();
+  }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spider.granjateu.dtos.InsumoDto;
 import com.spider.granjateu.entities.Insumo;
 import com.spider.granjateu.services.InsumoService;
 
@@ -26,6 +27,14 @@ public class InsumoController {
 
   public InsumoController(InsumoService insumoService) {
     this.insumoService = insumoService;
+  }
+
+
+  @GetMapping
+  public ResponseEntity<List<Insumo>> findAll() {
+    List<Insumo> insumos = insumoService.findAll();
+    
+    return ResponseEntity.ok(insumos);
   }
 
   @GetMapping("/{id}")
@@ -46,15 +55,15 @@ public class InsumoController {
   }
   
   @PutMapping("/{id}")
-  public ResponseEntity<Insumo> update(@PathVariable Long id, @RequestBody Insumo insumo) {
-    Insumo updatedInsumo = insumoService.update(id, insumo);
+  public ResponseEntity<Insumo> update(@PathVariable Long id, @RequestBody InsumoDto insumoDto) {
+    Insumo updatedInsumo = insumoService.update(id, insumoDto);
 
     return ResponseEntity.ok(updatedInsumo);  
   }
   
   @PostMapping
-  public ResponseEntity<Insumo> create(@RequestBody Insumo insumo) {
-    Insumo createdInsumo = insumoService.createInsumo(insumo);
+  public ResponseEntity<Insumo> create(@RequestBody InsumoDto insumoDto) {
+    Insumo createdInsumo = insumoService.createInsumo(insumoDto);
 
     return ResponseEntity.ok(createdInsumo);
     

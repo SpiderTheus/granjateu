@@ -47,33 +47,6 @@ class LoteAvesServiceTest {
 		Mockito.verify(loteAvesRepository).findByStatus(AveStatus.CRIA);
 	}
 
-	@Test
-	@DisplayName("Deve retornar uma lista vazia quando o status for inválido")
-	void findByStatusInvalid() {
-
-		String status = "Invalido";
-
-		List<LoteAvesDto> result = loteAvesService.findByStatus(status);
-
-		assertNotNull(result);
-		assertTrue(result.isEmpty());
-		Mockito.verify(loteAvesRepository, Mockito.never()).findByStatus(Mockito.any());
-
-	}
-
-	@Test
-	@DisplayName("Deve retornar uma lista vazia quando não houver lotes com o status especificado")
-	void findByStatusNotFound() {
-		String status = "postura";
-
-		Mockito.when(loteAvesRepository.findByStatus(AveStatus.POSTURA)).thenReturn(List.of());
-
-		List<LoteAvesDto> result = loteAvesService.findByStatus(status);
-
-		assertNotNull(result);
-		assertTrue(result.isEmpty());
-		Mockito.verify(loteAvesRepository).findByStatus(AveStatus.POSTURA);
-	}
 
 	@Test
 	@DisplayName("Deve mudar a string para o enum correspondente")

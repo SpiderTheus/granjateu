@@ -16,14 +16,14 @@ public class ManejoSemanalDto {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
   private LocalDate data;
   private String observacao;
-  private double consumo;
+  private Double consumo;
   private int perdas;
   private int ovosColetados;
 
   public ManejoSemanalDto() {
   }
 
-  public ManejoSemanalDto(long loteAvesId, LocalDate data, String observacao, double consumo, int perdas, int ovosColetados) {
+  public ManejoSemanalDto(long loteAvesId, LocalDate data, String observacao, Double consumo, int perdas, int ovosColetados) {
     this.loteAvesId = loteAvesId;
     this.data = data;
     this.observacao = observacao;

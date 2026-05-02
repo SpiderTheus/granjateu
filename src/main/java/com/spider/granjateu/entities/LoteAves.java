@@ -3,8 +3,6 @@ package com.spider.granjateu.entities;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.antlr.v4.runtime.misc.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.spider.granjateu.enums.AveStatus;
 

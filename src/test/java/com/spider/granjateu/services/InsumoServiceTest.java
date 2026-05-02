@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.spider.granjateu.dtos.InsumoDto;
 import com.spider.granjateu.entities.Insumo;
 
 import com.spider.granjateu.enums.AveStatus;
@@ -58,9 +59,9 @@ class InsumoServiceTest {
 	@Test
 	@DisplayName("Deve lançar exception quando não encontrar insumos com o tipo especificado")
 	void createInsumoMandatoryException() {
-		Insumo insumo = new Insumo();
+		InsumoDto insumoDto = new InsumoDto();
 	 	
-		assertThrows(AttributeMandatoryException.class, () -> insumoService.createInsumo(insumo));
+		assertThrows(AttributeMandatoryException.class, () -> insumoService.createInsumo(insumoDto));
 	}
 
 

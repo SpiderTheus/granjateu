@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spider.granjateu.dtos.InsumoDto;
 import com.spider.granjateu.entities.Insumo;
 import com.spider.granjateu.enums.AveStatus;
 import com.spider.granjateu.repositories.InsumoRepository;
@@ -48,34 +49,38 @@ public class InsumoService  {
     return insumos;
   }
 
-
-  public Insumo update(Long id, Insumo insumo) {
+  public Insumo update(Long id, InsumoDto insumoDto) {
     Insumo existingInsumo = findById(id);
-    
-    return insumoRepository.save(manterAtributo(existingInsumo, insumo));
+
+    Insumo updatedInsumo = manterAtributo(existingInsumo, insumoDto);
+
+    return insumoRepository.save(updatedInsumo);
   }
 
-
-  public Insumo manterAtributo(Insumo existingInsumo, Insumo insumo) {
-    if (insumo.getTipo() != null) {
-      existingInsumo.setTipo(insumo.getTipo());
+ 
+  public Insumo manterAtributo(Insumo existingInsumo, InsumoDto insumoDto) {
+    if (insumoDto.getTipo() != null) {
+      AveStatus parsedTipo = AveStatus.parseStatus(insumoDto.getTipo());
+      existingInsumo.setTipo(parsedTipo);
     }
-    if (insumo.getQuantidade() != null) {
-      existingInsumo.setQuantidade(insumo.getQuantidade());
+    if (insumoDto.getQuantidade() != 0) {
+      existingInsumo.setQuantidade(insumoDto.getQuantidade());
     }
-    if (insumo.getValor() != null) {
-      existingInsumo.setValor(insumo.getValor());
+    if (insumoDto.getValor() != null) {
+      existingInsumo.setValor(insumoDto.getValor());
     }
-    if(insumo.getDataEntrada() != null) {
-      existingInsumo.setDataEntrada(insumo.getDataEntrada());
+    if(insumoDto.getDataEntrada() != null) {
+      existingInsumo.setDataEntrada(insumoDto.getDataEntrada());
     }
     return existingInsumo;
   }
 
-  public Insumo createInsumo(Insumo insumo) {
+  public Insumo createInsumo(InsumoDto insumoDto) {
+    
   try {
+      Insumo insumo = new Insumo(insumoDto);
       return save(insumo);
-    } catch (AttributeMandatoryException e) {
+    } catch (NullPointerException e) {
       throw new AttributeMandatoryException(e.getMessage());
     }
   }

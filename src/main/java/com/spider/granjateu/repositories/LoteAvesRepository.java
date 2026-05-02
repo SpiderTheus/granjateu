@@ -15,8 +15,7 @@ public interface LoteAvesRepository extends JpaRepository<LoteAves, Long>{
     @Query("SELECT l FROM LoteAves l WHERE l.status = :status")
     List<LoteAves> findByStatus(@Param("status") AveStatus status);
 
-    @Query("SELECT l FROM LoteAves l WHERE l.raca = :raca")
-    List<LoteAves> findByRaca(@Param("raca") String raca);
+    List<LoteAves> findByRacaContainingIgnoreCase(@Param("raca") String raca);
 
 
 }

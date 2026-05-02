@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.spider.granjateu.controllers.InsumoController;
+import com.spider.granjateu.dtos.InsumoDto;
 import com.spider.granjateu.entities.Insumo;
 import com.spider.granjateu.services.InsumoService;
 
@@ -68,11 +69,15 @@ class InsumoControllerTest {
 		insumo.setId(id);
 		insumo.setTipo(AveStatus.CRIA);
 
-		when(insumoService.update(eq(id), any(Insumo.class))).thenReturn(insumo);
+		when(insumoService.update(eq(id), any(InsumoDto.class))).thenReturn(insumo);
 
-		mockMvc.perform(put("/insumos/{id}", id)
+		mockMvc.perform(MockMvcRequestBuilders.put("/insumos/{id}", id)
 				.contentType("application/json")
-				.content("{\"tipo\": \"CRIA\"}"))
+				.content("""
+						{
+							"tipo": "CRIA"
+						}
+						"""))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(id))
 				.andExpect(jsonPath("$.tipo").value("CRIA")); 
@@ -84,7 +89,7 @@ class InsumoControllerTest {
 		Insumo insumo = new Insumo(AveStatus.CRIA, 100.0, 50.0);
 		insumo.setId(id);
 		
-		when(insumoService.createInsumo(any(Insumo.class))).thenReturn(insumo);
+		when(insumoService.createInsumo(any(InsumoDto.class))).thenReturn(insumo);
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/insumos")
 				.contentType("application/json")
